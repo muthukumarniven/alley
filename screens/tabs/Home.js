@@ -49,14 +49,14 @@ export default function Home({ navigation }) {
                                 source={require('../../images/female.jpg')}
                                 blurRadius={14}
                             />
-                            <TouchableOpacity style={styles.cameraIconContainer} className="absolute top-1/1 left-1/1 transform -translate-x-1/1 -translate-y-1/1 z-10  rounded-[100px] p-5" >
+                            <TouchableOpacity style={{  backgroundColor: 'rgba(255, 255, 255, 0.3)',}} className="absolute top-1/1 left-1/1 transform -translate-x-1/1 -translate-y-1/1  rounded-[100px] p-5 bg-white-30" >
                                 <FontAwesomeIcon name="camera" size={26} color="#fff" />
                             </TouchableOpacity>
                         </View>
 
                         <View className="items-center mt-5">
-                            <TouchableOpacity onPress={handleNext} style={styles.frostedContainer}
-                                className="flex-row items-center justify-center max-w-[175px] w-full px-3 py-2 rounded-xl">
+                            <TouchableOpacity onPress={handleNext}
+                                className="flex-row items-center justify-center max-w-[175px] w-full px-3 py-2 rounded-xl bg-[#494A50] border border-[#5D5D61] border-[1px]">
                                 <Image className="w-6 h-6" source={require('../../images/swipe.png')} />
                                 <Text className="text-[#ADAEB1] ml-1 font-medium text-center text-[10px]">Pull down to take photos</Text>
                             </TouchableOpacity>
@@ -88,25 +88,25 @@ export default function Home({ navigation }) {
                                 ]}
                                 start={{ x: 0.5, y: 0 }}
                                 end={{ x: 0.5, y: 1 }}
-                                className=" p-5 flex-row justify-between items-center mt-4"
-                                style={{ borderColor: "#363539", borderWidth: 1, borderRadius: 20 }}
+                                className=" p-5 flex-row justify-between items-center mt-4 border border-[#363539] rounded-[20px]"
+                                // style={{ borderColor: "#363539", borderWidth: 1, borderRadius: 20 }}
                             >
                                 <Text className="text-lg text-[#F5F6F9] font-bold">Top 10 Places in {'\n'}
                                     Japan</Text>
                                 <View className=" flex-row items-center justify-end mt-5">
                                     <Image
                                         source={require('../../images/female.jpg')}
-                                        className="w-[60px] h-[60px] rounded-2xl border-[5px] border-[#fff] absolute right-9 top-[-35px]"
+                                        className="w-[60px] h-[60px] rounded-2xl absolute right-9 top-[-35px] rotate-[-15deg] z-[1]"
                                         style={styles.imageOne}
                                     />
                                     <Image
                                         source={require('../../images/mountain.jpg')}
-                                        className="w-[60px] h-[60px] rounded-2xl border-[5px] border-[#fff] absolute right-5 top-[-42px]"
+                                        className="w-[60px] h-[60px] rounded-2xl border-[5px] border-[#fff] absolute right-5 top-[-42px] rotate-[-5deg] z-[2]"
                                         style={styles.imageTwo}
                                     />
                                     <Image
                                         source={require('../../images/ocean.jpg')}
-                                        className="w-[60px] h-[60px] rounded-2xl absolute top-[-35px]"
+                                        className="w-[60px] h-[60px] rounded-2xl absolute top-[-35px] rotate-[15deg] z-[3]"
                                         style={styles.imageThree}
                                     />
                                 </View>
@@ -129,35 +129,15 @@ const styles = StyleSheet.create({
         flexGrow: 1,
         paddingBottom: 120,
     },
-    cameraIconContainer: {
-        backgroundColor: 'rgba(255, 255, 255, 0.3)',
-    },
-    frostedContainer: {
-        backgroundColor: '#494A50',
-        borderColor: "#5D5D61",
-        borderWidth: 1,
-    },
     imageOne: {
-        top: -35,
-        right: 36,
-        transform: [{ rotate: '-15deg' }],
-        zIndex: 1,
         borderColor: 'rgba(255, 255, 255, 0.75)',
         borderWidth: 3,
     },
     imageTwo: {
-        top: -42,
-        right: 20,
-        transform: [{ rotate: '-5deg' }],
-        zIndex: 2,
         borderColor: 'rgba(255, 255, 255, 0.75)',
         borderWidth: 3,
     },
     imageThree: {
-        top: -35,
-        right: 0,
-        transform: [{ rotate: '15deg' }],
-        zIndex: 3,
         borderColor: 'rgba(255, 255, 255, 0.75)',
         borderWidth: 3,
     },

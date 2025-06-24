@@ -263,10 +263,10 @@ export default function AddCollection({ navigation }) {
                     </View>
                 </Modal>
                 <Modal isVisible={isCountryPickerVisible} onBackdropPress={() => setCountryPickerVisible(false)} className="justify-center m-5">
-                    <View className="bg-[#2D2D3A] rounded-2xl p-5" style={{ maxHeight: '60%' }}><Text className="text-white text-lg font-bold mb-4 text-center">Select a Country</Text><FlatList data={countries} keyExtractor={(item) => item} renderItem={({ item }) => <DropdownItem label={item} onPress={() => handleSelectCountry(item)} />} /></View>
+                    <View className="bg-[#2D2D3A] rounded-2xl p-5 max-h-[60%]"><Text className="text-white text-lg font-bold mb-4 text-center">Select a Country</Text><FlatList data={countries} keyExtractor={(item) => item} renderItem={({ item }) => <DropdownItem label={item} onPress={() => handleSelectCountry(item)} />} /></View>
                 </Modal>
                 <Modal isVisible={isCityPickerVisible} onBackdropPress={() => setCityPickerVisible(false)} className="justify-center m-5">
-                    <View className="bg-[#2D2D3A] rounded-2xl p-5" style={{ maxHeight: '60%' }}><Text className="text-white text-lg font-bold mb-4 text-center">Select a City</Text><FlatList data={selectedCountry ? locationData[selectedCountry] : []} keyExtractor={(item) => item} renderItem={({ item }) => <DropdownItem label={item} onPress={() => handleSelectCity(item)} />} /></View>
+                    <View className="bg-[#2D2D3A] rounded-2xl p-5 max-h-[60%]"><Text className="text-white text-lg font-bold mb-4 text-center">Select a City</Text><FlatList data={selectedCountry ? locationData[selectedCountry] : []} keyExtractor={(item) => item} renderItem={({ item }) => <DropdownItem label={item} onPress={() => handleSelectCity(item)} />} /></View>
                 </Modal>
             </ImageBackground>
         </SafeAreaView>

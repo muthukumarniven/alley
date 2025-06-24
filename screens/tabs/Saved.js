@@ -68,8 +68,8 @@ export default function Saved() {
                                         <TouchableOpacity className="flex-1 bg-[#2D2D3A] rounded-2xl p-3">
                                             <View className="relative w-full aspect-square mb-3 flex-1 justify-center items-center">
                                                 <View className="relative w-32 h-32">
-                                                    <Image source={item.images[2]} className="absolute top-0 left-0 w-full h-full rounded-xl object-cover" style={{ transform: [{ rotate: '-15deg' }], borderColor: 'rgba(255, 255, 255, 0.75)', borderWidth: 3, }} />
-                                                    <Image source={item.images[1]} className="absolute top-0 left-0 w-full h-full rounded-xl object-cover" style={{ transform: [{ rotate: '8deg' }], borderColor: 'rgba(255, 255, 255, 0.75)', borderWidth: 3, }} />
+                                                    <Image source={item.images[2]} className="absolute top-0 left-0 w-full h-full rounded-xl object-cover rotate-[-15deg]" style={{borderColor: 'rgba(255, 255, 255, 0.75)', borderWidth: 3, }} />
+                                                    <Image source={item.images[1]} className="absolute top-0 left-0 w-full h-full rounded-xl object-cover rotate-[8deg]" style={{ borderColor: 'rgba(255, 255, 255, 0.75)', borderWidth: 3, }} />
                                                     <Image source={item.images[0]} className="absolute top-0 left-0 w-full h-full rounded-xl object-cover" style={{ borderColor: 'rgba(255, 255, 255, 0.75)', borderWidth: 3, }} />
                                                 </View>
                                             </View>

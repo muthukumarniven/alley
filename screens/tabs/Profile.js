@@ -85,22 +85,20 @@ export default function Profile() {
                   borderStyle: "dashed",
                   borderWidth: 1.6,
                   borderColor: "#fff",
-                  opacity: 0.5,
-                  backgroundColor: "#281E3B",
-                  overflow: "hidden",
+           
                 }}
-                className="w-32 h-32 rounded-full justify-center items-center"
+                className="w-32 h-32 rounded-full justify-center items-center opacity-50 bg-[#281E3B] overflow-hidden"
               >
                 {selectedImage ? (
                   <Image
                     source={{ uri: selectedImage }}
-                    style={{ width: '100%', height: '100%', borderRadius: 999 }}
                     resizeMode="cover"
+                    className="w-full h-full rounded-full"
                   />
                 ) : (
                   <Image
                     source={require('../../images/face_2.png')}
-                    style={{ width: 24, height: 24 }}
+                    className="w-6 h-6"
                   />
                 )}
               </TouchableOpacity>
@@ -114,7 +112,7 @@ export default function Profile() {
                   className="flex-row items-center justify-center gap-x-2 bg-[#3A3545] p-3 rounded-full active:bg-[#5a4f7c] min-w-[124px] max-w-[130px]"
                   activeOpacity={0.8}
                 >
-                  <Image source={require('../../images/pencil_fill.png')} style={{ width: 18, height: 18 }} />
+                  <Image source={require('../../images/pencil_fill.png')} className="w-4 h-4 object-cover" />
                   <Text className="text-white text-[12px] font-medium">Edit Profile</Text>
                 </TouchableOpacity>
               </View>
@@ -149,18 +147,16 @@ export default function Profile() {
                         <View className="relative w-32 h-32">
                           <Image
                             source={item.images[2]}
-                            className="absolute top-0 left-0 w-full h-full rounded-xl object-cover"
+                            className="absolute top-0 left-0 w-full h-full rounded-xl object-cover transform rotate-[-15deg]"
                             style={{
-                              transform: [{ rotate: '-15deg' }],
                               borderColor: 'rgba(255, 255, 255, 0.75)',
                               borderWidth: 3,
                             }}
                           />
                           <Image
                             source={item.images[1]}
-                            className="absolute top-0 left-0 w-full h-full rounded-xl object-cover"
+                            className="absolute top-0 left-0 w-full h-full rounded-xl object-cover rotate-[8deg]"
                             style={{
-                              transform: [{ rotate: '8deg' }],
                               borderColor: 'rgba(255, 255, 255, 0.75)',
                               borderWidth: 3,
                             }}
@@ -204,14 +200,13 @@ export default function Profile() {
           backdropOpacity={0.6}
           style={styles.modalContainer}
         >
-          <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}>Congrats</Text>
-            <Text style={styles.modalSubtitle}>Successfully updated your profile picture</Text>
-            <TouchableOpacity
-              style={styles.modalButton}
+          <View className="bg-[#1A132A] p-6 rounded-tl-[20px] rounded-tr-[20px] items-center">
+            <Text className="text-white text-[20px] font-bold mb-2.5">Congrats</Text>
+            <Text className="text-[#AAA6C3] text-[14px] text-center mb-6">Successfully updated your profile picture</Text>
+            <TouchableOpacity className='bg-[#F7F7FB] py-3.5 px-10 rounded-full w-full items-center'
               onPress={() => setShowSuccessModal(false)}
             >
-              <Text style={styles.modalButtonText}>Continue</Text>
+              <Text className="text-black font-bold text-[16px]">Continue</Text>
             </TouchableOpacity>
           </View>
         </Modal>
@@ -227,37 +222,5 @@ const styles = StyleSheet.create({
   modalContainer: {
     justifyContent: 'flex-end',
     margin: 0,
-  },
-  modalContent: {
-    backgroundColor: '#1A132A',
-    padding: 24,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    alignItems: 'center',
-  },
-  modalTitle: {
-    color: 'white',
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
-  modalSubtitle: {
-    color: '#AAA6C3',
-    fontSize: 14,
-    textAlign: 'center',
-    marginBottom: 24,
-  },
-  modalButton: {
-    backgroundColor: '#F7F7FB',
-    paddingVertical: 14,
-    paddingHorizontal: 40,
-    borderRadius: 999,
-    width: '100%',
-    alignItems: 'center',
-  },
-  modalButtonText: {
-    color: '#000',
-    fontWeight: 'bold',
-    fontSize: 16,
   },
 });

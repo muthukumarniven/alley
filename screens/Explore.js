@@ -21,66 +21,66 @@ const placesData = [
         id: '1',
         title: 'Top 10 Cafes in osaka, Japan',
         authorName: 'yuki',
-        authorImage: require('../../images/female.jpg'),
+        authorImage: require('../images/female.jpg'),
         images: [
-            require('../../images/female.jpg'),
-            require('../../images/ocean.jpg'),
-            require('../../images/mountain.jpg'),
+            require('../images/female.jpg'),
+            require('../images/ocean.jpg'),
+            require('../images/mountain.jpg'),
         ],
     },
     {
         id: '2',
         title: 'Top 10 Cafes in osaka, Japan',
         authorName: 'yuki',
-        authorImage: require('../../images/female.jpg'),
+        authorImage: require('../images/female.jpg'),
         images: [
-            require('../../images/female.jpg'),
-            require('../../images/ocean.jpg'),
-            require('../../images/mountain.jpg'),
+            require('../images/female.jpg'),
+            require('../images/ocean.jpg'),
+            require('../images/mountain.jpg'),
         ],
     },
     {
         id: '3',
         title: 'Top 10 Cafes in osaka, Japan',
         authorName: 'yuki',
-        authorImage: require('../../images/female.jpg'),
+        authorImage: require('../images/female.jpg'),
         images: [
-            require('../../images/female.jpg'),
-            require('../../images/ocean.jpg'),
-            require('../../images/mountain.jpg'),
+            require('../images/female.jpg'),
+            require('../images/ocean.jpg'),
+            require('../images/mountain.jpg'),
         ],
     },
     {
         id: '4',
         title: 'Top 10 Cafes in osaka, Japan',
         authorName: 'yuki',
-        authorImage: require('../../images/female.jpg'),
+        authorImage: require('../images/female.jpg'),
         images: [
-            require('../../images/female.jpg'),
-            require('../../images/ocean.jpg'),
-            require('../../images/mountain.jpg'),
+            require('../images/female.jpg'),
+            require('../images/ocean.jpg'),
+            require('../images/mountain.jpg'),
         ],
     },
         {
         id: '5',
         title: 'Top 10 Cafes in osaka, Japan',
         authorName: 'yuki',
-        authorImage: require('../../images/female.jpg'),
+        authorImage: require('../images/female.jpg'),
         images: [
-            require('../../images/female.jpg'),
-            require('../../images/ocean.jpg'),
-            require('../../images/mountain.jpg'),
+            require('../images/female.jpg'),
+            require('../images/ocean.jpg'),
+            require('../images/mountain.jpg'),
         ],
     },
         {
         id: '6',
         title: 'Top 10 Cafes in osaka, Japan',
         authorName: 'yuki',
-        authorImage: require('../../images/female.jpg'),
+        authorImage: require('../images/female.jpg'),
         images: [
-            require('../../images/female.jpg'),
-            require('../../images/ocean.jpg'),
-            require('../../images/mountain.jpg'),
+            require('../images/female.jpg'),
+            require('../images/ocean.jpg'),
+            require('../images/mountain.jpg'),
         ],
     },
 
@@ -150,7 +150,7 @@ export default function Explore() {
     return (
         <SafeAreaView className="flex-1 bg-black" edges={['top', 'bottom', 'left', 'right']}>
             <ImageBackground className='flex-1'
-                source={require('../../images/background.png')}
+                source={require('../images/background.png')}
             >
                 <StatusBar barStyle="light-content" backgroundColor="transparent" translucent={true} />
 

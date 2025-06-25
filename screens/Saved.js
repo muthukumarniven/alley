@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ImageBackground, ScrollView, StatusBar, TextInput, View, TouchableOpacity, Text, Image,StyleSheet } from 'react-native';
+import { ImageBackground, ScrollView, StatusBar, TextInput, View, TouchableOpacity, Text, Image, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -8,22 +8,22 @@ const placesData = [
         id: '1',
         title: 'Top 10 Most Beautiful Places in Japan',
         authorName: 'yuki',
-        authorImage: require('../../images/female.jpg'),
+        authorImage: require('../images/female.jpg'),
         images: [
-            require('../../images/female.jpg'),
-            require('../../images/ocean.jpg'),
-            require('../../images/mountain.jpg'),
+            require('../images/female.jpg'),
+            require('../images/ocean.jpg'),
+            require('../images/mountain.jpg'),
         ],
     },
     {
         id: '2',
         title: 'Top 10 Most Beautiful Places in Japan',
         authorName: 'yuki',
-        authorImage: require('../../images/mountain.jpg'),
+        authorImage: require('../images/mountain.jpg'),
         images: [
-            require('../../images/mountain.jpg'),
-            require('../../images/female.jpg'),
-            require('../../images/ocean.jpg'),
+            require('../images/mountain.jpg'),
+            require('../images/female.jpg'),
+            require('../images/ocean.jpg'),
         ],
     },
 
@@ -37,7 +37,7 @@ export default function Saved() {
     return (
         <SafeAreaView className="flex-1 bg-black" edges={['top', 'bottom', 'left', 'right']}>
             <ImageBackground className='flex-1'
-                source={require('../../images/background.png')}
+                source={require('../images/background.png')}
             >
                 <StatusBar barStyle="light-content" backgroundColor="transparent" translucent={true} />
 
@@ -68,7 +68,7 @@ export default function Saved() {
                                         <TouchableOpacity className="flex-1 bg-[#2D2D3A] rounded-2xl p-3">
                                             <View className="relative w-full aspect-square mb-3 flex-1 justify-center items-center">
                                                 <View className="relative w-32 h-32">
-                                                    <Image source={item.images[2]} className="absolute top-0 left-0 w-full h-full rounded-xl object-cover rotate-[-15deg]" style={{borderColor: 'rgba(255, 255, 255, 0.75)', borderWidth: 3, }} />
+                                                    <Image source={item.images[2]} className="absolute top-0 left-0 w-full h-full rounded-xl object-cover rotate-[-15deg]" style={{ borderColor: 'rgba(255, 255, 255, 0.75)', borderWidth: 3, }} />
                                                     <Image source={item.images[1]} className="absolute top-0 left-0 w-full h-full rounded-xl object-cover rotate-[8deg]" style={{ borderColor: 'rgba(255, 255, 255, 0.75)', borderWidth: 3, }} />
                                                     <Image source={item.images[0]} className="absolute top-0 left-0 w-full h-full rounded-xl object-cover" style={{ borderColor: 'rgba(255, 255, 255, 0.75)', borderWidth: 3, }} />
                                                 </View>
@@ -95,8 +95,8 @@ export default function Saved() {
             </ImageBackground>
         </SafeAreaView>
     );
-}const styles = StyleSheet.create({
+} const styles = StyleSheet.create({
     scrollContainer: {
-        paddingBottom:80
+        paddingBottom: 80
     },
 });

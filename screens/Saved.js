@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ImageBackground, ScrollView, StatusBar, TextInput, View, TouchableOpacity, Text, Image, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import CustomTabBar from './common/TabNavigation';
 
 const placesData = [
     {
@@ -93,6 +94,7 @@ export default function Saved() {
                     </View>
                 </ScrollView>
             </ImageBackground>
+              <CustomTabBar/>
         </SafeAreaView>
     );
 } const styles = StyleSheet.create({

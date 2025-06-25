@@ -137,7 +137,7 @@ export default function Home({ navigation }) {
 const styles = StyleSheet.create({
     scrollContainer: {
         flexGrow: 1,
-        paddingBottom: 120,
+        // paddingBottom: 120,
     },
     imageOne: {
         borderColor: 'rgba(255, 255, 255, 0.75)',

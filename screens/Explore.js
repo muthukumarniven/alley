@@ -15,6 +15,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import CustomTabBar from './common/TabNavigation';
 
 const placesData = [
     {
@@ -278,6 +279,7 @@ export default function Explore() {
                     </Pressable>
                 </Pressable>
             </Modal>
+              <CustomTabBar/>
         </SafeAreaView>
     );
 }

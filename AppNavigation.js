@@ -15,6 +15,8 @@ import Explore from './screens/Explore';
 import Saved from './screens/Saved';
 import Profile from './screens/Profile'
 
+import CustomTabBar from './screens/common/TabNavigation';
+
 
 const Stack = createNativeStackNavigator();
 
@@ -32,8 +34,6 @@ export default function AppNavigator() {
       <Stack.Screen name='Explore' component={Explore} />
       <Stack.Screen name='Saved' component={Saved} />
       <Stack.Screen name='Profile' component={Profile} />
-      
-
     </Stack.Navigator>
   );
 }

@@ -12,6 +12,7 @@ import {
 import * as ImagePicker from 'expo-image-picker';
 import Modal from 'react-native-modal';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import CustomTabBar from './common/TabNavigation';
 
 
 const CheckmarkIcon = () => (
@@ -222,6 +223,7 @@ export default function Profile() {
         </Modal>
 
       </ImageBackground>
+      <CustomTabBar/>
     </SafeAreaView>
   );
 }

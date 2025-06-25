@@ -18,19 +18,14 @@ import { styled } from 'nativewind';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Modal from 'react-native-modal';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-
-// --- IMAGE IMPORTS (Make sure paths are correct) ---
-
 import mapImage from '../images/map.png';
 import alexImage from '../images/ocean.jpg';
 import sophieImage from '../images/female.jpg';
-import { BlurView } from 'expo-blur';  // Importing Expo's BlurView
+import { BlurView } from 'expo-blur';
 
 const StyledTextInput = styled(TextInput);
 
 
-
-// --- Mock Data ---
 const locationData = { 'USA': ['New York', 'Los Angeles', 'Chicago', 'Houston', 'Phoenix'], 'Japan': ['Tokyo', 'Osaka', 'Kyoto', 'Sapporo', 'Fukuoka'], 'Australia': ['Sydney', 'Melbourne', 'Brisbane', 'Perth', 'Adelaide',], 'Canada': ['Toronto', 'Vancouver', 'Montreal', 'Calgary', 'Ottawa'], 'Germany': ['Berlin', 'Hamburg', 'Munich', 'Cologne', 'Frankfurt'], };
 const countries = Object.keys(locationData);
 
@@ -51,8 +46,6 @@ const allCompanions = [
 
 const DropdownItem = ({ label, onPress }) => (<TouchableOpacity onPress={onPress} className="py-4 border-b border-b-[#3A3A4D]"><Text className="text-[#E0E0E0] text-base text-center">{label}</Text></TouchableOpacity>);
 
-
-// Component for the "Add companion" list
 const CompanionRow = ({ companion, isSelected, onSelect }) => (
     <TouchableOpacity onPress={onSelect} className="flex-row justify-between items-center py-3">
         <View className="flex-row items-center gap-x-4 flex-shrink">
@@ -67,13 +60,9 @@ const CompanionRow = ({ companion, isSelected, onSelect }) => (
     </TouchableOpacity>
 );
 
-// --- End Helper Components ---
-
 export default function AddCollection({ navigation }) {
     const [memoryText, setMemoryText] = useState('');
     const [activeCategory, setActiveCategory] = useState('Food & Drinks');
-
-    // State for Location Modal
     const [isLocationModalVisible, setLocationModalVisible] = useState(false);
     const [allowLocation, setAllowLocation] = useState(false);
     const [selectedCountry, setSelectedCountry] = useState(null);
@@ -83,16 +72,11 @@ export default function AddCollection({ navigation }) {
     const [finalLocation, setFinalLocation] = useState(null);
     const [isOffBeat, setIsOffBeat] = useState(false);
     const [isPublicPost, setIsPublicPost] = useState(false);
-
-    // --- State for Companion Modal ---
     const [isCompanionModalVisible, setCompanionModalVisible] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedCompanions, setSelectedCompanions] = useState(new Set());
     const [finalCompanions, setFinalCompanions] = useState([]);
-
-
     const categories = [{ name: 'Food & Drinks', icon: 'hamburger' }, { name: 'Activity', icon: 'flag' }];
-
     const handleNext = () => navigation.navigate("Home");
     const handleSelectCountry = (country) => { setSelectedCountry(country); setSelectedCity(null); setCountryPickerVisible(false); };
     const handleSelectCity = (city) => { setSelectedCity(city); setCityPickerVisible(false); };
@@ -102,7 +86,6 @@ export default function AddCollection({ navigation }) {
         setLocationModalVisible(false);
     };
 
-    // --- Handlers for Companion Modal ---
     const handleToggleCompanion = (companionId) => {
         const newSelection = new Set(selectedCompanions);
         if (newSelection.has(companionId)) newSelection.delete(companionId);
@@ -128,6 +111,12 @@ export default function AddCollection({ navigation }) {
             </TouchableOpacity>
         </View>
     );
+
+
+    const showSuccessPopup = () => {
+        navigation.navigate("Profile");
+    };
+
 
     return (
         <SafeAreaView className="flex-1 bg-black" edges={['top', "bottom"]}>
@@ -215,15 +204,14 @@ export default function AddCollection({ navigation }) {
                         tint="dark"
                     />
                     <TouchableOpacity className="w-full h-[55px] rounded-full justify-center items-center overflow-hidden border border-white/10"
-                        onPress={() => { }}
-                        activeOpacity={0.8}
+                        onPress={showSuccessPopup}
                     >
                         <Text className="text-base font-semibold text-white">Save Memory</Text>
                     </TouchableOpacity>
+
+
                 </View>
 
-
-                {/* --- Add Companion Modal --- */}
                 <Modal isVisible={isCompanionModalVisible} onBackdropPress={() => setCompanionModalVisible(false)} onSwipeComplete={() => setCompanionModalVisible(false)} swipeDirection="down" className="justify-end m-0" backdropOpacity={0.8}>
                     <View className="bg-[#1C1C1E] px-6 pt-6 pb-8 rounded-t-2xl">
                         <View className="relative flex-row items-center justify-center mb-5">
@@ -242,16 +230,14 @@ export default function AddCollection({ navigation }) {
                             renderItem={({ item }) => (
                                 <CompanionRow companion={item} isSelected={selectedCompanions.has(item.id)} onSelect={() => handleToggleCompanion(item.id)} />
                             )}
-                            style={{ maxHeight: 250 }} // Give it a height to contain the list
+                            style={{ maxHeight: 250 }}
                         />
                         <TouchableOpacity className="items-center mt-6" onPress={handleConfirmCompanions}>
                             <Text className="text-white text-lg font-medium">Confirm</Text>
                         </TouchableOpacity>
                     </View>
                 </Modal>
-                {/* --- End Add Companion Modal --- */}
 
-                {/* Location Modals (unchanged) */}
                 <Modal isVisible={isLocationModalVisible} onBackdropPress={() => setLocationModalVisible(false)} onSwipeComplete={() => setLocationModalVisible(false)} swipeDirection="down" className="justify-end m-0" backdropOpacity={0.8}>
                     <View className="bg-[#1C1C1E] px-6 pt-6 pb-8 rounded-t-2xl">
                         <View className="relative flex-row items-center justify-center mb-6"><TouchableOpacity onPress={() => setLocationModalVisible(false)} className="absolute left-0 bg-[#3A3A4C] rounded-full w-7 h-7 justify-center items-center"><Ionicons name="close" size={20} color="#E5E5E5" /></TouchableOpacity><Text className="text-white text-lg font-bold">Add location</Text></View>
@@ -268,6 +254,10 @@ export default function AddCollection({ navigation }) {
                 <Modal isVisible={isCityPickerVisible} onBackdropPress={() => setCityPickerVisible(false)} className="justify-center m-5">
                     <View className="bg-[#2D2D3A] rounded-2xl p-5 max-h-[60%]"><Text className="text-white text-lg font-bold mb-4 text-center">Select a City</Text><FlatList data={selectedCountry ? locationData[selectedCountry] : []} keyExtractor={(item) => item} renderItem={({ item }) => <DropdownItem label={item} onPress={() => handleSelectCity(item)} />} /></View>
                 </Modal>
+
+
+
+
             </ImageBackground>
         </SafeAreaView>
     );

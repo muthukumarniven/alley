@@ -14,6 +14,7 @@ import Profile from './screens/tabs/Profile';
 import AddCollection from './screens/AddCollection';
 import { BlurView } from 'expo-blur';
 import Notification from './screens/Notification';
+import SaveMemory from './screens/SaveMemory';
 
 
 const Stack = createNativeStackNavigator();
@@ -149,6 +150,8 @@ export default function AppNavigator() {
       <Stack.Screen name='Home' component={TabNavigator} />
       <Stack.Screen name='AddCollection' component={AddCollection} />
       <Stack.Screen name='Notification' component={Notification}/>
+      <Stack.Screen name='SaveMemory' component={SaveMemory}/>
+      <Stack.Screen name='Profile' component={Profile}/>
 
     </Stack.Navigator>
   );

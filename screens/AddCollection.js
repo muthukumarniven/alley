@@ -10,13 +10,13 @@ import {
     TextInput,
     FlatList,
     StyleSheet,
-
+    Modal,
+    TouchableWithoutFeedback,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Feather from 'react-native-vector-icons/Feather';
 import { styled } from 'nativewind';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import Modal from 'react-native-modal';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import mapImage from '../images/map.png';
 import alexImage from '../images/ocean.jpg';
@@ -25,12 +25,11 @@ import { BlurView } from 'expo-blur';
 
 const StyledTextInput = styled(TextInput);
 
-
 const locationData = { 'USA': ['New York', 'Los Angeles', 'Chicago', 'Houston', 'Phoenix'], 'Japan': ['Tokyo', 'Osaka', 'Kyoto', 'Sapporo', 'Fukuoka'], 'Australia': ['Sydney', 'Melbourne', 'Brisbane', 'Perth', 'Adelaide',], 'Canada': ['Toronto', 'Vancouver', 'Montreal', 'Calgary', 'Ottawa'], 'Germany': ['Berlin', 'Hamburg', 'Munich', 'Cologne', 'Frankfurt'], };
 const countries = Object.keys(locationData);
 
 const allCompanions = [
-    { id: '1', name: 'Muthukumar sivakumar', image: alexImage },
+    { id: '1', name: 'Muthukumar sivakumar sdfsdf sdfdsf sdfsdf sdfdsf', image: alexImage },
     { id: '2', name: 'Bharathidasan Durai', image: sophieImage },
     { id: '3', name: 'Muthukumar s', image: sophieImage },
     { id: '4', name: 'Muthukumar sivakumar', image: alexImage },
@@ -112,11 +111,10 @@ export default function AddCollection({ navigation }) {
         </View>
     );
 
-
     const showSuccessPopup = () => {
-        navigation.navigate("Profile");
+        // Navigate to Profile AND send a parameter to trigger the modal
+        navigation.navigate("Profile", { showMemoryModal: true });
     };
-
 
     return (
         <SafeAreaView className="flex-1 bg-black" edges={['top', "bottom"]}>
@@ -191,11 +189,9 @@ export default function AddCollection({ navigation }) {
                                     <Icon name="user-plus" size={16} color="#BDAEFF" />
                                 </TouchableOpacity>
                             </View>
-
                         </View>
                     </View>
                 </ScrollView>
-
 
                 <View className="absolute bottom-0 w-full px-5 py-5" >
                     <BlurView
@@ -208,60 +204,108 @@ export default function AddCollection({ navigation }) {
                     >
                         <Text className="text-base font-semibold text-white">Save Memory</Text>
                     </TouchableOpacity>
-
-
                 </View>
 
-                <Modal isVisible={isCompanionModalVisible} onBackdropPress={() => setCompanionModalVisible(false)} onSwipeComplete={() => setCompanionModalVisible(false)} swipeDirection="down" className="justify-end m-0" backdropOpacity={0.8}>
-                    <View className="bg-[#1C1C1E] px-6 pt-6 pb-8 rounded-t-2xl">
-                        <View className="relative flex-row items-center justify-center mb-5">
-                            <TouchableOpacity onPress={() => setCompanionModalVisible(false)} className="absolute left-0 bg-[#3A3A4C] rounded-full w-7 h-7 justify-center items-center">
-                                <Ionicons name="close" size={20} color="#E5E5E5" />
-                            </TouchableOpacity>
-                            <Text className="text-white text-[21px] font-bold">Add companion</Text>
+                {/* --- Companion Modal using React Native Core Component --- */}
+                <Modal
+                    visible={isCompanionModalVisible}
+                    transparent={true}
+                    animationType="slide"
+                    onRequestClose={() => setCompanionModalVisible(false)}
+                >
+                    <TouchableWithoutFeedback onPress={() => setCompanionModalVisible(false)}>
+                        <View className="flex flex-1 justify-end" style={{ backgroundColor: 'rgba(0, 0, 0, 0.8)', }}>
+                            <TouchableWithoutFeedback>
+                                <View className="bg-[#111013] px-6 pt-6 pb-8 rounded-t-2xl">
+                                    <View className="relative flex-row items-center justify-center mb-5">
+                                        <TouchableOpacity onPress={() => setCompanionModalVisible(false)} className="absolute left-0 bg-[#1D1C20] rounded-full w-7 h-7 justify-center items-center">
+                                            <Ionicons name="close" size={20} color="#E5E5E5" />
+                                        </TouchableOpacity>
+                                        <Text className="text-white text-[21px] font-bold">Add companion</Text>
+                                    </View>
+                                    <View className="flex-row items-center bg-[#1D1C20] rounded-lg px-3 mb-4">
+                                        <Ionicons name="search" size={20} color="#8E8E93" />
+                                        <TextInput placeholder="Search by name" placeholderTextColor="#8E8E93" className="flex-1 h-10 text-white ml-2" value={searchQuery} onChangeText={setSearchQuery} />
+                                    </View>
+                                    <FlatList
+                                        data={filteredCompanions}
+                                        keyExtractor={item => item.id}
+                                        renderItem={({ item }) => (
+                                            <CompanionRow companion={item} isSelected={selectedCompanions.has(item.id)} onSelect={() => handleToggleCompanion(item.id)} />
+                                        )}
+                                        style={{ maxHeight: 250 }}
+                                    />
+                                    <TouchableOpacity className="items-center mt-6" onPress={handleConfirmCompanions}>
+                                        <Text className="text-white text-lg font-medium">Confirm</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </TouchableWithoutFeedback>
                         </View>
-                        <View className="flex-row items-center bg-[#2C2C2E] rounded-lg px-3 mb-4">
-                            <Ionicons name="search" size={20} color="#8E8E93" />
-                            <TextInput placeholder="Search by name" placeholderTextColor="#8E8E93" className="flex-1 h-10 text-white ml-2" value={searchQuery} onChangeText={setSearchQuery} />
+                    </TouchableWithoutFeedback>
+                </Modal>
+
+                {/* --- Location Modal using React Native Core Component --- */}
+                <Modal
+                    visible={isLocationModalVisible}
+                    transparent={true}
+                    animationType="slide"
+                    onRequestClose={() => setLocationModalVisible(false)}
+                >
+                    <TouchableWithoutFeedback onPress={() => setLocationModalVisible(false)}>
+                        <View className="flex flex-1 justify-end" style={{ backgroundColor: 'rgba(0, 0, 0, 0.9)', }}>
+                            <TouchableWithoutFeedback>
+                                <View className="bg-[#111013] px-6 pt-6 pb-8 rounded-t-2xl">
+                                    <View className="relative flex-row items-center justify-center mb-6"><TouchableOpacity onPress={() => setLocationModalVisible(false)} className="absolute left-0 bg-[#3A3A4C] rounded-full w-7 h-7 justify-center items-center"><Ionicons name="close" size={20} color="#E5E5E5" /></TouchableOpacity><Text className="text-white text-lg font-bold">Add location</Text></View>
+                                    <View className="flex-row justify-between items-center w-full"><Text className="text-[#D8D2FF] text-base">Allow app to get your location</Text><TouchableOpacity onPress={() => setAllowLocation(!allowLocation)} className={`w-[50px] h-[30px] rounded-full justify-center ${allowLocation ? 'bg-[#C5BFF9]' : 'bg-[#5A5A72]'}`}><View className={`w-[26px] h-[26px] rounded-full justify-center items-center ${allowLocation ? 'bg-white self-end mr-0.5' : 'bg-[#3A3A4D] self-start ml-0.5'}`}>{!allowLocation && <Text className="text-[#9E9E9E] text-sm font-bold">✕</Text>}</View></TouchableOpacity></View>
+                                    <View className="flex-row items-center my-6"><View className="flex-1 h-px bg-[#3A3A4D]" /><Text className="text-[#8A8A9E] mx-2.5 text-sm">or</Text><View className="flex-1 h-px bg-[#3A3A4D]" /></View>
+                                    <Text className="text-[#D8D2FF] text-base self-start mb-2.5">Country</Text><TouchableOpacity className="bg-[#1D1C20] rounded-xl px-4 py-3.5 w-full flex-row justify-between items-center mb-5" onPress={() => setCountryPickerVisible(true)}><Text className={`text-base ${selectedCountry ? 'text-white' : 'text-[#8A8A9E]'}`}>{selectedCountry || 'Select'}</Text><Text className="text-[#8A8A9E] text-xs">▼</Text></TouchableOpacity>
+                                    <Text className="text-[#D8D2FF] text-base self-start mb-2.5">City</Text><TouchableOpacity className={`bg-[#1D1C20] rounded-xl px-4 py-3.5 w-full flex-row justify-between items-center mb-5 ${!selectedCountry ? 'opacity-50' : ''}`} onPress={() => { if (selectedCountry) setCityPickerVisible(true); }} disabled={!selectedCountry}><Text className={`text-base ${selectedCity ? 'text-white' : 'text-[#8A8A9E]'}`}>{selectedCity || 'Select'}</Text><Text className="text-[#8A8A9E] text-xs">▼</Text></TouchableOpacity>
+                                    <TouchableOpacity className="py-4 w-full items-center mt-2.5" onPress={handleConfirmLocation}><Text className="text-white text-lg font-bold">Confirm</Text></TouchableOpacity>
+                                </View>
+                            </TouchableWithoutFeedback>
                         </View>
-                        <FlatList
-                            data={filteredCompanions}
-                            keyExtractor={item => item.id}
-                            renderItem={({ item }) => (
-                                <CompanionRow companion={item} isSelected={selectedCompanions.has(item.id)} onSelect={() => handleToggleCompanion(item.id)} />
-                            )}
-                            style={{ maxHeight: 250 }}
-                        />
-                        <TouchableOpacity className="items-center mt-6" onPress={handleConfirmCompanions}>
-                            <Text className="text-white text-lg font-medium">Confirm</Text>
-                        </TouchableOpacity>
-                    </View>
+                    </TouchableWithoutFeedback>
                 </Modal>
 
-                <Modal isVisible={isLocationModalVisible} onBackdropPress={() => setLocationModalVisible(false)} onSwipeComplete={() => setLocationModalVisible(false)} swipeDirection="down" className="justify-end m-0" backdropOpacity={0.8}>
-                    <View className="bg-[#1C1C1E] px-6 pt-6 pb-8 rounded-t-2xl">
-                        <View className="relative flex-row items-center justify-center mb-6"><TouchableOpacity onPress={() => setLocationModalVisible(false)} className="absolute left-0 bg-[#3A3A4C] rounded-full w-7 h-7 justify-center items-center"><Ionicons name="close" size={20} color="#E5E5E5" /></TouchableOpacity><Text className="text-white text-lg font-bold">Add location</Text></View>
-                        <View className="flex-row justify-between items-center w-full"><Text className="text-[#D8D2FF] text-base">Allow app to get your location</Text><TouchableOpacity onPress={() => setAllowLocation(!allowLocation)} className={`w-[50px] h-[30px] rounded-full justify-center ${allowLocation ? 'bg-[#C5BFF9]' : 'bg-[#5A5A72]'}`}><View className={`w-[26px] h-[26px] rounded-full justify-center items-center ${allowLocation ? 'bg-white self-end mr-0.5' : 'bg-[#3A3A4D] self-start ml-0.5'}`}>{!allowLocation && <Text className="text-[#9E9E9E] text-sm font-bold">✕</Text>}</View></TouchableOpacity></View>
-                        <View className="flex-row items-center my-6"><View className="flex-1 h-px bg-[#3A3A4D]" /><Text className="text-[#8A8A9E] mx-2.5 text-sm">or</Text><View className="flex-1 h-px bg-[#3A3A4D]" /></View>
-                        <Text className="text-[#D8D2FF] text-base self-start mb-2.5">Country</Text><TouchableOpacity className="bg-[#3B3842] rounded-xl px-4 py-3.5 w-full flex-row justify-between items-center mb-5" onPress={() => setCountryPickerVisible(true)}><Text className={`text-base ${selectedCountry ? 'text-white' : 'text-[#8A8A9E]'}`}>{selectedCountry || 'Select'}</Text><Text className="text-[#8A8A9E] text-xs">▼</Text></TouchableOpacity>
-                        <Text className="text-[#D8D2FF] text-base self-start mb-2.5">City</Text><TouchableOpacity className={`bg-[#3B3842] rounded-xl px-4 py-3.5 w-full flex-row justify-between items-center mb-5 ${!selectedCountry ? 'opacity-50' : ''}`} onPress={() => { if (selectedCountry) setCityPickerVisible(true); }} disabled={!selectedCountry}><Text className={`text-base ${selectedCity ? 'text-white' : 'text-[#8A8A9E]'}`}>{selectedCity || 'Select'}</Text><Text className="text-[#8A8A9E] text-xs">▼</Text></TouchableOpacity>
-                        <TouchableOpacity className="py-4 w-full items-center mt-2.5" onPress={handleConfirmLocation}><Text className="text-white text-lg font-bold">Confirm</Text></TouchableOpacity>
-                    </View>
-                </Modal>
-                <Modal isVisible={isCountryPickerVisible} onBackdropPress={() => setCountryPickerVisible(false)} className="justify-center m-5">
-                    <View className="bg-[#2D2D3A] rounded-2xl p-5 max-h-[60%]"><Text className="text-white text-lg font-bold mb-4 text-center">Select a Country</Text><FlatList data={countries} keyExtractor={(item) => item} renderItem={({ item }) => <DropdownItem label={item} onPress={() => handleSelectCountry(item)} />} /></View>
-                </Modal>
-                <Modal isVisible={isCityPickerVisible} onBackdropPress={() => setCityPickerVisible(false)} className="justify-center m-5">
-                    <View className="bg-[#2D2D3A] rounded-2xl p-5 max-h-[60%]"><Text className="text-white text-lg font-bold mb-4 text-center">Select a City</Text><FlatList data={selectedCountry ? locationData[selectedCountry] : []} keyExtractor={(item) => item} renderItem={({ item }) => <DropdownItem label={item} onPress={() => handleSelectCity(item)} />} /></View>
+                {/* --- Country Picker Modal using React Native Core Component --- */}
+                <Modal
+                    visible={isCountryPickerVisible}
+                    transparent={true}
+                    animationType="fade"
+                    onRequestClose={() => setCountryPickerVisible(false)}
+                >
+                    <TouchableWithoutFeedback onPress={() => setCountryPickerVisible(false)}>
+                        <View className="flex-1 flex justify-center items-center px-5" style={{ backgroundColor: 'rgba(0, 0, 0, 0.8)', }}>
+                            <TouchableWithoutFeedback>
+                                <View className="bg-[#2D2D3A] rounded-2xl p-5 max-h-[60%] w-full">
+                                    <Text className="text-white text-lg font-bold mb-4 text-center">Select a Country</Text>
+                                    <FlatList data={countries} keyExtractor={(item) => item} renderItem={({ item }) => <DropdownItem label={item} onPress={() => handleSelectCountry(item)} />} />
+                                </View>
+                            </TouchableWithoutFeedback>
+                        </View>
+                    </TouchableWithoutFeedback>
                 </Modal>
 
-
-
+                {/* --- City Picker Modal using React Native Core Component --- */}
+                <Modal
+                    visible={isCityPickerVisible}
+                    transparent={true}
+                    animationType="fade"
+                    onRequestClose={() => setCityPickerVisible(false)}
+                >
+                    <TouchableWithoutFeedback onPress={() => setCityPickerVisible(false)}>
+                        <View className="flex-1 flex justify-center items-center px-5" style={{ backgroundColor: 'rgba(0, 0, 0, 0.8)', }}>
+                            <TouchableWithoutFeedback>
+                                <View className="bg-[#2D2D3A] rounded-2xl p-5 max-h-[60%] w-full">
+                                    <Text className="text-white text-lg font-bold mb-4 text-center">Select a City</Text>
+                                    <FlatList data={selectedCountry ? locationData[selectedCountry] : []} keyExtractor={(item) => item} renderItem={({ item }) => <DropdownItem label={item} onPress={() => handleSelectCity(item)} />} />
+                                </View>
+                            </TouchableWithoutFeedback>
+                        </View>
+                    </TouchableWithoutFeedback>
+                </Modal>
 
             </ImageBackground>
         </SafeAreaView>
     );
 }
-
-
-

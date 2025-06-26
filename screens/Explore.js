@@ -239,9 +239,9 @@ export default function Explore() {
                 onRequestClose={handleCloseModal}
             >
                 <Pressable onPress={handleCloseModal} className="flex-1 justify-end bg-black/90">
-                    <Pressable className="bg-[#1C1C1E] rounded-t-3xl p-5 pb-8">
+                    <Pressable className="bg-[#111013] rounded-t-3xl p-5 pb-8">
                         <View className="relative flex-row items-center justify-center mb-6">
-                            <TouchableOpacity onPress={handleCloseModal} className="absolute left-0 bg-[#3A3A3C] rounded-full w-7 h-7 justify-center items-center">
+                            <TouchableOpacity onPress={handleCloseModal} className="absolute left-0 bg-[#1D1C20] rounded-full w-7 h-7 justify-center items-center">
                                 <Ionicons name="close" size={20} color="#E5E5E5" />
                             </TouchableOpacity>
                             <Text className="text-white text-lg font-bold">
@@ -249,7 +249,7 @@ export default function Explore() {
                             </Text>
                         </View>
 
-                        <View className="flex-row items-center bg-[#2C2C2E] rounded-xl px-3 mb-2">
+                        <View className="flex-row items-center bg-[#1D1C20] rounded-xl px-3 mb-2">
                             <Ionicons name="search" size={20} color="#8E8E93" />
                             <TextInput
                                 placeholder="Search by name"

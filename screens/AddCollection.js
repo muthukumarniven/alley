@@ -48,7 +48,7 @@ const DropdownItem = ({ label, onPress }) => (<TouchableOpacity onPress={onPress
 const CompanionRow = ({ companion, isSelected, onSelect }) => (
     <TouchableOpacity onPress={onSelect} className="flex-row justify-between items-center py-3">
         <View className="flex-row items-center gap-x-4 flex-shrink">
-            <Image source={companion.image} className="w-10 h-10 rounded-full" />
+            <Image style={{ borderColor: "#fff", borderWidth: 2 }} source={companion.image} className="w-10 h-10 rounded-full" />
             <View className="flex-1 pr-4">
                 <Text className="text-white text-base">{companion.name}</Text>
             </View>
@@ -75,6 +75,8 @@ export default function AddCollection({ navigation }) {
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedCompanions, setSelectedCompanions] = useState(new Set());
     const [finalCompanions, setFinalCompanions] = useState([]);
+
+
     const categories = [{ name: 'Food & Drinks', icon: 'hamburger' }, { name: 'Activity', icon: 'flag' }];
     const handleNext = () => navigation.navigate("Home");
     const handleSelectCountry = (country) => { setSelectedCountry(country); setSelectedCity(null); setCountryPickerVisible(false); };
@@ -105,7 +107,11 @@ export default function AddCollection({ navigation }) {
             <Text className="text-sm text-[#D8D2FF] mt-5 mb-2.5">{label}</Text>
             <TouchableOpacity onPress={() => onValueChange(!value)} className={`w-[50px] h-[30px] rounded-full justify-center ${value ? 'bg-[#BDAEFF]' : 'bg-[#5A5A72]'}`}>
                 <View className={`w-[26px] h-[26px] rounded-full justify-center items-center ${value ? 'bg-white self-end mr-0.5' : 'bg-[#3A3A4D] self-start ml-0.5'}`}>
-                    {!value && <Ionicons name="close" size={18} color="#9E9E9E" />}
+                    {value ? (
+                        <Ionicons name="checkmark" size={18} color="#BDAEFF" />
+                    ) : (
+                        <Ionicons name="close" size={18} color="#9E9E9E" />
+                    )}
                 </View>
             </TouchableOpacity>
         </View>
@@ -182,10 +188,10 @@ export default function AddCollection({ navigation }) {
                             <View className="flex-row items-center gap-2 flex-wrap">
                                 {finalCompanions.map(c => (
                                     <TouchableOpacity key={c.id} onPress={() => setCompanionModalVisible(true)}>
-                                        <Image source={c.image} className="w-12 h-12 rounded-full" />
+                                        <Image style={{ borderColor: "#fff", borderWidth: 2 }} source={c.image} className="w-12 h-12 rounded-full" />
                                     </TouchableOpacity>
                                 ))}
-                                <TouchableOpacity onPress={() => setCompanionModalVisible(true)} style={{ borderWidth: 1.7, borderStyle: 'dashed', borderColor: '#757087' }} className="w-12 h-12 rounded-full items-center justify-center">
+                                <TouchableOpacity onPress={() => setCompanionModalVisible(true)} style={{ borderWidth: 1.3, borderStyle: 'dashed', borderColor: '#757087' }} className="w-12 h-12 rounded-full items-center justify-center">
                                     <Icon name="user-plus" size={16} color="#BDAEFF" />
                                 </TouchableOpacity>
                             </View>
@@ -255,8 +261,28 @@ export default function AddCollection({ navigation }) {
                         <View className="flex flex-1 justify-end" style={{ backgroundColor: 'rgba(0, 0, 0, 0.9)', }}>
                             <TouchableWithoutFeedback>
                                 <View className="bg-[#111013] px-6 pt-6 pb-8 rounded-t-2xl">
-                                    <View className="relative flex-row items-center justify-center mb-6"><TouchableOpacity onPress={() => setLocationModalVisible(false)} className="absolute left-0 bg-[#3A3A4C] rounded-full w-7 h-7 justify-center items-center"><Ionicons name="close" size={20} color="#E5E5E5" /></TouchableOpacity><Text className="text-white text-lg font-bold">Add location</Text></View>
-                                    <View className="flex-row justify-between items-center w-full"><Text className="text-[#D8D2FF] text-base">Allow app to get your location</Text><TouchableOpacity onPress={() => setAllowLocation(!allowLocation)} className={`w-[50px] h-[30px] rounded-full justify-center ${allowLocation ? 'bg-[#C5BFF9]' : 'bg-[#5A5A72]'}`}><View className={`w-[26px] h-[26px] rounded-full justify-center items-center ${allowLocation ? 'bg-white self-end mr-0.5' : 'bg-[#3A3A4D] self-start ml-0.5'}`}>{!allowLocation && <Text className="text-[#9E9E9E] text-sm font-bold">✕</Text>}</View></TouchableOpacity></View>
+                                    <View className="relative flex-row items-center justify-center mb-6">
+                                        <TouchableOpacity onPress={() => setLocationModalVisible(false)} className="absolute left-0 bg-[#3A3A4C] rounded-full w-7 h-7 justify-center items-center">
+                                            <Ionicons name="close" size={20} color="#E5E5E5" />
+                                        </TouchableOpacity>
+                                        <Text className="text-white text-lg font-bold">Add location</Text></View>
+
+
+
+                                    <View className="flex-row justify-between items-center w-full">
+                                        <Text className="text-[#D8D2FF] text-base">Allow app to get your location</Text>
+                                        <TouchableOpacity onPress={() => setAllowLocation(!allowLocation)} className={`w-[50px] h-[30px] rounded-full justify-center ${allowLocation ? 'bg-[#C5BFF9]' : 'bg-[#5A5A72]'}`}>
+                                            <View className={`w-[26px] h-[26px] rounded-full justify-center items-center ${allowLocation ? 'bg-white self-end mr-0.5' : 'bg-[#3A3A4D] self-start ml-0.5'}`}>
+                                                {allowLocation ? (
+                                                    <Ionicons name="checkmark" size={18} color="#C5BFF9" />
+                                                ) : (
+                                                    <Ionicons name="close" size={18} color="#9E9E9E" />
+                                                )}
+                                            </View>
+                                        </TouchableOpacity>
+                                    </View>
+
+
                                     <View className="flex-row items-center my-6"><View className="flex-1 h-px bg-[#3A3A4D]" /><Text className="text-[#8A8A9E] mx-2.5 text-sm">or</Text><View className="flex-1 h-px bg-[#3A3A4D]" /></View>
                                     <Text className="text-[#D8D2FF] text-base self-start mb-2.5">Country</Text><TouchableOpacity className="bg-[#1D1C20] rounded-xl px-4 py-3.5 w-full flex-row justify-between items-center mb-5" onPress={() => setCountryPickerVisible(true)}><Text className={`text-base ${selectedCountry ? 'text-white' : 'text-[#8A8A9E]'}`}>{selectedCountry || 'Select'}</Text><Text className="text-[#8A8A9E] text-xs">▼</Text></TouchableOpacity>
                                     <Text className="text-[#D8D2FF] text-base self-start mb-2.5">City</Text><TouchableOpacity className={`bg-[#1D1C20] rounded-xl px-4 py-3.5 w-full flex-row justify-between items-center mb-5 ${!selectedCountry ? 'opacity-50' : ''}`} onPress={() => { if (selectedCountry) setCityPickerVisible(true); }} disabled={!selectedCountry}><Text className={`text-base ${selectedCity ? 'text-white' : 'text-[#8A8A9E]'}`}>{selectedCity || 'Select'}</Text><Text className="text-[#8A8A9E] text-xs">▼</Text></TouchableOpacity>

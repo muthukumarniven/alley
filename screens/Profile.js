@@ -29,6 +29,12 @@ const collectionsData = [
   { id: 'c1', title: 'Top 5 Kamakura peaceful cafes zfsdf zxcsdf sdfsdfv sfsd sdf', imageCount: 2, image: require('../images/ocean.jpg') },
   { id: 'c2', title: 'Tokyo Nightlife', imageCount: 15, image: require('../images/mountain.jpg') },
   { id: 'c3', title: 'Kyoto Temples', imageCount: 8, image: require('../images/female.jpg') },
+  { id: 'c4', title: 'Top 5 Kamakura peaceful cafes zfsdf zxcsdf sdfsdfv sfsd sdf', imageCount: 2, image: require('../images/ocean.jpg') },
+  { id: 'c5', title: 'Tokyo Nightlife', imageCount: 15, image: require('../images/mountain.jpg') },
+  { id: 'c6', title: 'Kyoto Temples', imageCount: 8, image: require('../images/female.jpg') },
+  { id: 'c7', title: 'Top 5 Kamakura peaceful cafes zfsdf zxcsdf sdfsdfv sfsd sdf', imageCount: 2, image: require('../images/ocean.jpg') },
+  { id: 'c8', title: 'Tokyo Nightlife', imageCount: 15, image: require('../images/mountain.jpg') },
+  { id: 'c9', title: 'Kyoto Temples', imageCount: 8, image: require('../images/female.jpg') },
 ];
 
 const allCompanions = [
@@ -278,8 +284,8 @@ export default function Profile({ navigation, route }) {
                       )}
                     </TouchableOpacity>
                   )} />
-                  <TouchableOpacity className="py-6 items-center mt-2" onPress={handleConfirmAddToCollection}>
-                    <Text className="text-white text-base font-semibold">Add to my collection</Text>
+                  <TouchableOpacity className="py-6 items-center mt-2" onPress={handleCreateNewCollection}>
+                    <Text className="text-white text-base font-semibold">Create</Text>
                   </TouchableOpacity>
                 </View>
               </TouchableWithoutFeedback>
@@ -308,19 +314,27 @@ export default function Profile({ navigation, route }) {
                     </View>
                     <View className="flex-row justify-between items-center">
                       <Text className="text-[#D8D2FF] text-sm">Post as public post</Text>
+
+
                       <TouchableOpacity onPress={() => setIsPublicPost(!isPublicPost)} className={`w-[50px] h-[30px] rounded-full justify-center ${isPublicPost ? 'bg-[#BDAEFF]' : 'bg-[#5A5A72]'}`}>
                         <View className={`w-[26px] h-[26px] rounded-full justify-center items-center ${isPublicPost ? 'bg-white self-end mr-0.5' : 'bg-[#3A3A4D] self-start ml-0.5'}`}>
-                          {!isPublicPost && <Ionicons name="close" size={18} color="#9E9E9E" />}
+                          {isPublicPost ? (
+                            <Ionicons name="checkmark" size={18} color="#BDAEFF" />
+                          ) : (
+                            <Ionicons name="close" size={18} color="#9E9E9E" />
+                          )}
                         </View>
                       </TouchableOpacity>
+
+
                     </View>
                     <View>
                       <Text className="text-[#D8D2FF] text-sm mb-2">Companion</Text>
                       <View className="flex-row items-center gap-x-2">
                         {finalCompanions.map(c => (
-                          <Image key={c.id} source={c.image} className="w-12 h-12 rounded-full" />
+                          <Image style={{ borderColor: "#fff", borderWidth: 2 }} key={c.id} source={c.image} className="w-12 h-12 rounded-full" />
                         ))}
-                        <TouchableOpacity onPress={handleOpenCompanionModal} style={{ borderWidth: 1.7, borderStyle: 'dashed', borderColor: '#757087' }} className="w-12 h-12 rounded-full items-center justify-center">
+                        <TouchableOpacity onPress={handleOpenCompanionModal} style={{ borderWidth: 1.3, borderStyle: 'dashed', borderColor: '#757087' }} className="w-12 h-12 rounded-full items-center justify-center">
                           <Icon name="user-plus" size={16} color="#BDAEFF" />
                         </TouchableOpacity>
                       </View>

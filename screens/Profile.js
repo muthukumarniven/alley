@@ -29,12 +29,8 @@ const collectionsData = [
   { id: 'c1', title: 'Top 5 Kamakura peaceful cafes zfsdf zxcsdf sdfsdfv sfsd sdf', imageCount: 2, image: require('../images/ocean.jpg') },
   { id: 'c2', title: 'Tokyo Nightlife', imageCount: 15, image: require('../images/mountain.jpg') },
   { id: 'c3', title: 'Kyoto Temples', imageCount: 8, image: require('../images/female.jpg') },
-  { id: 'c4', title: 'Top 5 Kamakura peaceful cafes zfsdf zxcsdf sdfsdfv sfsd sdf', imageCount: 2, image: require('../images/ocean.jpg') },
-  { id: 'c5', title: 'Tokyo Nightlife', imageCount: 15, image: require('../images/mountain.jpg') },
-  { id: 'c6', title: 'Kyoto Temples', imageCount: 8, image: require('../images/female.jpg') },
 ];
 
-// Data for the new companion modal
 const allCompanions = [
   { id: 'comp1', name: 'Alex Johnson', image: require('../images/ocean.jpg') },
   { id: 'comp2', name: 'Sophie Martinez', image: require('../images/female.jpg') },
@@ -55,7 +51,6 @@ export default function Profile({ navigation, route }) {
   const [newCollectionName, setNewCollectionName] = useState('');
   const [isPublicPost, setIsPublicPost] = useState(false);
 
-  // State for the Add Companion Modal
   const [isAddCompanionModalVisible, setAddCompanionModalVisible] = useState(false);
   const [companionSearchQuery, setCompanionSearchQuery] = useState('');
   const [selectedCompanionIds, setSelectedCompanionIds] = useState(new Set());
@@ -72,14 +67,10 @@ export default function Profile({ navigation, route }) {
 
   const handleMemoryAddToCollection = () => setAddToCollectionModalVisible(true);
   const handleMemoryDoItLater = () => setMemoryModalVisible(false);
-  const handleConfirmAddToCollection = () => {
-    console.log(`Adding memory to collection ID: ${selectedCollectionId}`);
-    setAddToCollectionModalVisible(false);
-  };
-
+  const handleConfirmAddToCollection = () => setAddToCollectionModalVisible(false);
   const handleOpenAddNewCollection = () => setAddNewCollectionModalVisible(true);
+
   const handleCreateNewCollection = () => {
-    console.log('Creating new collection:', { name: newCollectionName, public: isPublicPost });
     setAddNewCollectionModalVisible(false);
     setAddToCollectionModalVisible(false);
     setMemoryModalVisible(false);
@@ -89,7 +80,6 @@ export default function Profile({ navigation, route }) {
     setSelectedCompanionIds(new Set());
   };
 
-  // Handlers for Add Companion Modal
   const handleOpenCompanionModal = () => setAddCompanionModalVisible(true);
 
   const handleToggleCompanion = (companionId) => {
@@ -119,8 +109,25 @@ export default function Profile({ navigation, route }) {
   };
   const currentData = allData[activeTab];
 
+  // --- THIS FUNCTION IS NOW RESTORED ---
   const handleOpenGallery = async () => {
-    // ... function remains the same
+    const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (!permissionResult.granted) {
+      alert("Please allow gallery access to continue.");
+      return;
+    }
+
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      setSelectedImage(result.assets[0].uri);
+      setShowSuccessModal(true);
+    }
   };
 
   const filteredCollections = collectionsData.filter(c => c.title.toLowerCase().includes(searchQuery.toLowerCase()));
@@ -271,8 +278,8 @@ export default function Profile({ navigation, route }) {
                       )}
                     </TouchableOpacity>
                   )} />
-                  <TouchableOpacity className="py-6 items-center mt-2" onPress={handleCreateNewCollection}>
-                    <Text className="text-white text-base font-semibold">Create</Text>
+                  <TouchableOpacity className="py-6 items-center mt-2" onPress={handleConfirmAddToCollection}>
+                    <Text className="text-white text-base font-semibold">Add to my collection</Text>
                   </TouchableOpacity>
                 </View>
               </TouchableWithoutFeedback>

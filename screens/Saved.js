@@ -31,9 +31,12 @@ const placesData = [
 ];
 
 
-export default function Saved() {
+export default function Saved({ navigation }) {
     const [searchText, setSearchText] = useState('');
     const [isFocused, setIsFocused] = useState(false);
+
+    const handleNext = () => navigation.navigate("Collections");
+
 
     return (
         <SafeAreaView className="flex-1 bg-black" edges={['top', 'bottom', 'left', 'right']}>
@@ -66,7 +69,7 @@ export default function Saved() {
                             {
                                 placesData.map((item) => (
                                     <View key={item.id} className="w-1/2 p-2">
-                                        <TouchableOpacity className="flex-1 bg-[#2D2D3A] rounded-2xl p-3">
+                                        <TouchableOpacity onPress={handleNext} className="flex-1 bg-[#2D2D3A] rounded-2xl p-3">
                                             <View className="relative w-full aspect-square mb-3 flex-1 justify-center items-center">
                                                 <View className="relative w-32 h-32">
                                                     <Image source={item.images[2]} className="absolute top-0 left-0 w-full h-full rounded-xl object-cover rotate-[-15deg]" style={{ borderColor: 'rgba(255, 255, 255, 0.75)', borderWidth: 3, }} />
@@ -94,7 +97,7 @@ export default function Saved() {
                     </View>
                 </ScrollView>
             </ImageBackground>
-              <CustomTabBar/>
+            <CustomTabBar />
         </SafeAreaView>
     );
 } const styles = StyleSheet.create({

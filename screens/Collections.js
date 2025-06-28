@@ -1,0 +1,136 @@
+import React from 'react';
+import { TouchableOpacity, View, Text, ImageBackground, ScrollView, StatusBar, StyleSheet, Image, } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import Feather from 'react-native-vector-icons/Feather';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
+export default function Collections({ navigation }) {
+    const handleNext = () => navigation.navigate("Explore");
+
+    const mainImage = require('../images/female.jpg');
+    const avatarImage = require('../images/ocean.jpg');
+    const yukiAvatar = require('../images/female.jpg');
+
+
+
+    const baseButtonStyles = "flex-row items-center py-3 px-7 rounded-full shadow-lg shadow-black";
+
+    return (
+        <SafeAreaView className="flex-1 bg-black">
+            <ImageBackground
+                className="flex-1"
+                source={require('../images/background.png')}
+            >
+                <StatusBar barStyle="light-content" backgroundColor="transparent" translucent={true} />
+
+                <ScrollView contentContainerStyle={styles.scrollContainer}>
+                    <View className="p-5 mt-5">
+                        <TouchableOpacity onPress={handleNext} className="bg-[#2D2D3A] w-12 h-12 rounded-full items-center justify-center">
+                            <Feather name="chevron-left" size={28} color="#FFFFFF" />
+                        </TouchableOpacity>
+                        <Text className='text-[40px] mt-5 font-bold text-white'>Top 10 Places in Japan</Text>
+                        <View className="flex-row items-center gap-2 mt-3">
+                            <Image source={yukiAvatar} className="w-6 h-6 rounded-full" />
+                            <Text className="text-neutral-300 font-medium text-sm">@yuki</Text>
+                        </View>
+                        <View className="h-px bg-neutral-600 mt-3 mb-4" />
+
+                        {/* --- LIST ITEM 1 (Aligned Left) --- */}
+                        <View className="w-full items-start mb-8">
+                            <View className="w-[227px] rounded-3xl shadow-xl shadow-black/40">
+                                <Image
+                                    source={mainImage}
+                                    className="w-full h-[227px] rounded-3xl"
+                                />
+                                <TouchableOpacity
+                                    className="absolute right-6 bottom-[-20] w-12 h-12 bg-[#383848] rounded-full justify-center items-center border-2 border-[#1c1c1e] shadow-lg shadow-black/30"
+                                >
+                                    <Feather name="plus" size={30} color="#E0E0E0" />
+                                </TouchableOpacity>
+                            </View>
+                            <View className="mt-5 ml-2">
+                                <View className="flex-row items-center">
+                                    <Image
+                                        source={avatarImage}
+                                        className="w-6 h-6 rounded-full mr-3"
+                                    />
+                                    <Text numberOfLines={1} className="text-white text-base font-semibold w-[170px]">
+                                        @naruto sdfsd sdfsdf sdfsdfsdf sdfsdfsdf dsf
+                                    </Text>
+                                </View>
+                            </View>
+                        </View>
+
+                        <View className="w-full items-end mb-8">
+                            <View className="w-[227px] rounded-3xl shadow-xl shadow-black/40">
+                                <Image
+                                    source={mainImage}
+                                    className="w-full h-[227px] rounded-3xl"
+                                />
+                                <TouchableOpacity
+                                    className="absolute right-6 bottom-[-20] w-12 h-12 bg-[#383848] rounded-full justify-center items-center border-2 border-[#1c1c1e] shadow-lg shadow-black/30"
+                                >
+                                    <Feather name="plus" size={30} color="#E0E0E0" />
+                                </TouchableOpacity>
+                            </View>
+                            <View className="mt-5 mr-2">
+                                <View className="flex-row items-center">
+                                    <Image
+                                        source={avatarImage}
+                                        className="w-6 h-6 rounded-full mr-3"
+                                    />
+                                    <Text numberOfLines={1} className="text-white text-base font-semibold w-[170px]">
+                                        @naruto sdfc sdfsd dsfs fsd sdfs dfssdf sdf sdfs f
+                                    </Text>
+                                </View>
+                            </View>
+                        </View>
+                        {/* --- LIST ITEM 1 (Aligned Left) --- */}
+                        <View className="w-full items-start mb-8">
+                            <View className="w-[227px] rounded-3xl shadow-xl shadow-black/40">
+                                <Image
+                                    source={mainImage}
+                                    className="w-full h-[227px] rounded-3xl"
+                                />
+                                <TouchableOpacity
+                                    className="absolute right-6 bottom-[-20] w-12 h-12 bg-[#383848] rounded-full justify-center items-center border-2 border-[#1c1c1e] shadow-lg shadow-black/30"
+                                >
+                                    <Feather name="plus" size={30} color="#E0E0E0" />
+                                </TouchableOpacity>
+                            </View>
+                            <View className="mt-5 ml-2">
+                                <View className="flex-row items-center">
+                                    <Image
+                                        source={avatarImage}
+                                        className="w-6 h-6 rounded-full mr-3"
+                                    />
+                                    <Text numberOfLines={1} className="text-white text-base font-semibold w-[170px]">
+                                        @naruto sdfsd sdfsdf sdfsdfsdf sdfsdfsdf dsf
+                                    </Text>
+                                </View>
+                            </View>
+                        </View>
+                    </View>
+                </ScrollView>
+
+                <View className="absolute bottom-[30px] left-0 right-0 flex-row justify-center items-center pt-5 pb-2.5">
+                    <TouchableOpacity style={{ backgroundColor: 'rgba(58, 58, 60, 0.9)', }} className={`${baseButtonStyles} bg[#343436] mr-2.5`} >
+                        <MaterialCommunityIcons name="share-variant-outline" size={24} color="white" />
+                        <Text className="text-white text-base font-semibold ml-2.5">Share</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={{ backgroundColor: 'rgba(58, 58, 60, 0.9)', }} className={`${baseButtonStyles} bg[#343436]`}>
+                        <Feather name="bookmark" size={24} color="white" />
+                        <Text className="text-white text-base font-semibold ml-2.5">Save</Text>
+                    </TouchableOpacity>
+                </View>
+            </ImageBackground>
+        </SafeAreaView>
+    );
+}
+
+const styles = StyleSheet.create({
+    scrollContainer: {
+        paddingBottom: 80
+    },
+});

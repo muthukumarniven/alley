@@ -40,50 +40,10 @@ const placesData = [
             require('../images/mountain.jpg'),
         ],
     },
-    {
-        id: '3',
-        title: 'Top 10 Cafes in osaka, Japan',
-        authorName: 'yuki',
-        authorImage: require('../images/female.jpg'),
-        images: [
-            require('../images/female.jpg'),
-            require('../images/ocean.jpg'),
-            require('../images/mountain.jpg'),
-        ],
-    },
-    {
-        id: '4',
-        title: 'Top 10 Cafes in osaka, Japan',
-        authorName: 'yuki',
-        authorImage: require('../images/female.jpg'),
-        images: [
-            require('../images/female.jpg'),
-            require('../images/ocean.jpg'),
-            require('../images/mountain.jpg'),
-        ],
-    },
-        {
-        id: '5',
-        title: 'Top 10 Cafes in osaka, Japan',
-        authorName: 'yuki',
-        authorImage: require('../images/female.jpg'),
-        images: [
-            require('../images/female.jpg'),
-            require('../images/ocean.jpg'),
-            require('../images/mountain.jpg'),
-        ],
-    },
-        {
-        id: '6',
-        title: 'Top 10 Cafes in osaka, Japan',
-        authorName: 'yuki',
-        authorImage: require('../images/female.jpg'),
-        images: [
-            require('../images/female.jpg'),
-            require('../images/ocean.jpg'),
-            require('../images/mountain.jpg'),
-        ],
-    },
+   
+  
+    
+    
 
 ];
 

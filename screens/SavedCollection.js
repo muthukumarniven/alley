@@ -13,12 +13,13 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Feather from 'react-native-vector-icons/Feather';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import AddToCollectionFlow from './components/AddToCollectionFlow';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { LinearGradient } from 'expo-linear-gradient';
 
 const listData = [
     {
         id: 'item1',
-        mainImage: require('../images/female.jpg'),
+        mainImage: require('../images/mountain.jpg'),
         avatarImage: require('../images/ocean.jpg'),
         username: '@naruto sdfsd sdfsdf sdfsdfsdf sdfsdfsdf dsf',
     },
@@ -37,7 +38,7 @@ const listData = [
 ];
 
 const collectionsDataForModal = [
-    { id: 'c1', title: 'Top 5 Kamakura peaceful cafes', imageCount: 2, image: require('../images/ocean.jpg') },
+    { id: 'c1', title: 'Top 5 Kamakura peaceful cafes', imageCount: 2, image: require('../images/mountain.jpg') },
     { id: 'c2', title: 'Tokyo Nightlife', imageCount: 15, image: require('../images/mountain.jpg') },
     { id: 'c3', title: 'Kyoto Temples', imageCount: 8, image: require('../images/female.jpg') },
 ];
@@ -50,11 +51,11 @@ const allCompanionsForModal = [
 ];
 
 
-export default function Collections({ navigation }) {
+export default function SavedCollection({ navigation }) {
     const [addedItems, setAddedItems] = useState(new Set());
     const [isAddToCollectionModalVisible, setAddToCollectionModalVisible] = useState(false);
 
-    const handleNext = () => navigation.navigate("Explore");
+    const handleNext = () => navigation.navigate("Saved");
     const yukiAvatar = require('../images/female.jpg');
 
     const handleAddItemPress = (itemId) => {
@@ -71,7 +72,6 @@ export default function Collections({ navigation }) {
 
     const handleCreateCollection = (data) => {
         console.log("Collection flow completed with data:", data);
-        // You can add logic here to handle the newly created collection
         setAddToCollectionModalVisible(false);
     };
 
@@ -148,7 +148,6 @@ export default function Collections({ navigation }) {
 
                 <View className="absolute bottom-[30px] left-0 right-0 flex-row justify-center items-center pt-5 pb-2.5">
                     <TouchableOpacity >
-
                         <LinearGradient
                             colors={[
                                 'rgba(167, 167, 167, 0.6)',
@@ -163,8 +162,7 @@ export default function Collections({ navigation }) {
                             <Text className="text-white text-base font-semibold ml-2.5">Share</Text>
                         </LinearGradient>
                     </TouchableOpacity>
-
-                    <TouchableOpacity>
+                    <TouchableOpacity >
                         <LinearGradient
                             colors={[
                                 'rgba(167, 167, 167, 0.6)',
@@ -175,7 +173,7 @@ export default function Collections({ navigation }) {
                             end={{ x: 0.5, y: 1 }}
                             className={`${baseButtonStyles} bg[#343436]`}
                         >
-                            <Feather name="bookmark" size={24} color="white" />
+                            <FontAwesome5 name="bookmark" size={24} color="#6F27FF" solid />
                             <Text className="text-white text-base font-semibold ml-2.5">Save</Text>
                         </LinearGradient>
                     </TouchableOpacity>
@@ -196,6 +194,6 @@ export default function Collections({ navigation }) {
 
 const styles = StyleSheet.create({
     scrollContainer: {
-        paddingBottom: 120, // Increased padding to ensure last item is not covered by buttons
+        paddingBottom: 120,
     },
 });

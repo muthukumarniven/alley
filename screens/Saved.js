@@ -35,7 +35,7 @@ export default function Saved({ navigation }) {
     const [searchText, setSearchText] = useState('');
     const [isFocused, setIsFocused] = useState(false);
 
-    const handleNext = () => navigation.navigate("Collections");
+    const handleNext = () => navigation.navigate("SavedCollection");
 
 
     return (
@@ -77,7 +77,6 @@ export default function Saved({ navigation }) {
                                                     <Image source={item.images[0]} className="absolute top-0 left-0 w-full h-full rounded-xl object-cover" style={{ borderColor: 'rgba(255, 255, 255, 0.75)', borderWidth: 3, }} />
                                                 </View>
                                             </View>
-
                                             <Text
                                                 className="text-white font-bold text-sm mb-2 h-12"
                                                 numberOfLines={2}

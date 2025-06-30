@@ -15,6 +15,10 @@ import Explore from './screens/Explore';
 import Saved from './screens/Saved';
 import Profile from './screens/Profile'
 import Collections from './screens/Collections';
+import Gallery from './screens/Gallery';
+import SavedCollection from './screens/SavedCollection';
+import ProfileCollection from './screens/ProfileCollection';
+
 
 import CustomTabBar from './screens/common/TabNavigation';
 
@@ -35,6 +39,13 @@ export default function AppNavigator() {
       <Stack.Screen name='Saved' component={Saved} />
       <Stack.Screen name='Profile' component={Profile} />
       <Stack.Screen name='Collections' component={Collections} />
+      <Stack.Screen name='Gallery' component={Gallery} />
+      <Stack.Screen name='SavedCollection' component={SavedCollection} />
+      <Stack.Screen name='ProfileCollection' component={ProfileCollection} />
+
+
+
+
     </Stack.Navigator>
   );
 }

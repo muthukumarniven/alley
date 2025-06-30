@@ -10,20 +10,12 @@ import {
   Image,
   Modal,
   TouchableWithoutFeedback,
-  TextInput,
-  FlatList,
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import CustomTabBar from './common/TabNavigation';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import Icon from 'react-native-vector-icons/FontAwesome5';
-
-const CheckmarkIcon = () => (
-  <View className="w-6 h-6 bg-yellow-400 rounded-full items-center justify-center">
-    <Text className="text-black font-bold text-sm">✓</Text>
-  </View>
-);
+import AddToCollectionFlow from './components/AddToCollectionFlow';
+import MemorySuccessModal from './components/MemorySuccessModal';
 
 const collectionsData = [
   { id: 'c1', title: 'Top 5 Kamakura peaceful cafes zfsdf zxcsdf sdfsdfv sfsd sdf', imageCount: 2, image: require('../images/ocean.jpg') },
@@ -50,19 +42,10 @@ export default function Profile({ navigation, route }) {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [isMemoryModalVisible, setMemoryModalVisible] = useState(false);
   const [isAddToCollectionModalVisible, setAddToCollectionModalVisible] = useState(false);
-  const [selectedCollectionId, setSelectedCollectionId] = useState('c1');
-  const [searchQuery, setSearchQuery] = useState('');
 
-  const [isAddNewCollectionModalVisible, setAddNewCollectionModalVisible] = useState(false);
-  const [newCollectionName, setNewCollectionName] = useState('');
-  const [isPublicPost, setIsPublicPost] = useState(false);
 
-  const [isAddCompanionModalVisible, setAddCompanionModalVisible] = useState(false);
-  const [companionSearchQuery, setCompanionSearchQuery] = useState('');
-  const [selectedCompanionIds, setSelectedCompanionIds] = useState(new Set());
-  const [finalCompanions, setFinalCompanions] = useState([]);
+  const handleNext = () => navigation.navigate("ProfileCollection");
 
-  const memoryImage = require('../images/female.jpg');
 
   useEffect(() => {
     if (route.params?.showMemoryModal) {
@@ -71,37 +54,19 @@ export default function Profile({ navigation, route }) {
     }
   }, [route.params?.showMemoryModal]);
 
-  const handleMemoryAddToCollection = () => setAddToCollectionModalVisible(true);
+  const handleMemoryAddToCollection = () => {
+    setMemoryModalVisible(false); // Close the memory modal
+    setAddToCollectionModalVisible(true); // Open the collection flow
+  };
+
   const handleMemoryDoItLater = () => setMemoryModalVisible(false);
-  const handleConfirmAddToCollection = () => setAddToCollectionModalVisible(false);
-  const handleOpenAddNewCollection = () => setAddNewCollectionModalVisible(true);
 
-  const handleCreateNewCollection = () => {
-    setAddNewCollectionModalVisible(false);
-    setAddToCollectionModalVisible(false);
-    setMemoryModalVisible(false);
-    setNewCollectionName('');
-    setIsPublicPost(false);
-    setFinalCompanions([]);
-    setSelectedCompanionIds(new Set());
-  };
-
-  const handleOpenCompanionModal = () => setAddCompanionModalVisible(true);
-
-  const handleToggleCompanion = (companionId) => {
-    const newSelection = new Set(selectedCompanionIds);
-    if (newSelection.has(companionId)) {
-      newSelection.delete(companionId);
-    } else {
-      newSelection.add(companionId);
-    }
-    setSelectedCompanionIds(newSelection);
-  };
-
-  const handleConfirmCompanions = () => {
-    const selected = allCompanions.filter(c => selectedCompanionIds.has(c.id));
-    setFinalCompanions(selected);
-    setAddCompanionModalVisible(false);
+  // This handler is called when the user finishes the "Add to Collection" flow
+  const handleCreateNewCollection = (data) => {
+    console.log('Collection created/selected with data:', data);
+    // You can add logic here to handle the new collection data
+    setAddToCollectionModalVisible(false); // Close the flow
+    // The memory modal is already closed by `handleMemoryAddToCollection`
   };
 
   const tabs = ['Gallery', 'Collections', 'Tagged'];
@@ -115,7 +80,6 @@ export default function Profile({ navigation, route }) {
   };
   const currentData = allData[activeTab];
 
-  // --- THIS FUNCTION IS NOW RESTORED ---
   const handleOpenGallery = async () => {
     const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (!permissionResult.granted) {
@@ -135,9 +99,6 @@ export default function Profile({ navigation, route }) {
       setShowSuccessModal(true);
     }
   };
-
-  const filteredCollections = collectionsData.filter(c => c.title.toLowerCase().includes(searchQuery.toLowerCase()));
-  const filteredCompanions = allCompanions.filter(c => c.name.toLowerCase().includes(companionSearchQuery.toLowerCase()));
 
   return (
     <SafeAreaView className="flex-1 bg-black" edges={['top', 'bottom', 'left', 'right']}>
@@ -183,7 +144,7 @@ export default function Profile({ navigation, route }) {
               <View className="flex-row flex-wrap -mx-2 mt-4">
                 {currentData.map((item) => (
                   <View key={item.id} className="w-1/2 p-2">
-                    <TouchableOpacity className="flex-1 bg-[#2D2D3A] rounded-2xl p-3">
+                    <TouchableOpacity onPress={handleNext} className="flex-1 bg-[#2D2D3A] rounded-2xl p-3">
                       <View className="relative w-full aspect-square mb-3 flex-1 justify-center items-center">
                         <View className="relative w-32 h-32">
                           <Image source={item.images[2]} className="absolute top-0 left-0 w-full h-full rounded-xl object-cover transform rotate-[-15deg]" style={{ borderColor: 'rgba(255, 255, 255, 0.75)', borderWidth: 3 }} />
@@ -220,180 +181,19 @@ export default function Profile({ navigation, route }) {
           </TouchableWithoutFeedback>
         </Modal>
 
-        <Modal visible={isMemoryModalVisible} transparent={true} animationType="slide" onRequestClose={() => setMemoryModalVisible(false)}>
-          <TouchableWithoutFeedback onPress={() => setMemoryModalVisible(false)}>
-            <View className="flex-1 flex justify-end items-center" style={{ backgroundColor: 'rgba(0, 0, 0, 0.9)' }}>
-              <TouchableWithoutFeedback>
-                <View className="bg-[#111013] rounded-t-3xl items-center pt-4 pb-8 w-full">
-                  <Image source={memoryImage} className="w-24 h-24 rounded-2xl -mt-16 mb-6 border-4 border-[#1C1C1E]" />
-                  <View className="px-6 w-full">
-                    <View className="bg-[#1D1C20] flex-row items-center p-3 pl-4 rounded-full">
-                      <CheckmarkIcon />
-                      <Text className="text-white text-base font-semibold ml-3">Your memory saved successfully.</Text>
-                    </View>
-                    <Text className="text-zinc-400 text-base text-center mt-5 mb-6 leading-6">Add your saved memory into one or more collections and make it public if you wish to share it with the world.</Text>
-                    <View className="flex-row justify-between space-x-3">
-                      <TouchableOpacity onPress={handleMemoryDoItLater} className="bg-[#1D1C20] flex-1 py-4 rounded-full items-center">
-                        <Text className="text-white text-base font-semibold">I'll do it later</Text>
-                      </TouchableOpacity>
-                      <TouchableOpacity onPress={handleMemoryAddToCollection} className="bg-[#A729F5] flex-1 py-4 rounded-full items-center">
-                        <Text className="text-white text-base font-semibold">Add to collection</Text>
-                      </TouchableOpacity>
-                    </View>
-                  </View>
-                </View>
-              </TouchableWithoutFeedback>
-            </View>
-          </TouchableWithoutFeedback>
-        </Modal>
+        <MemorySuccessModal
+          visible={isMemoryModalVisible}
+          onClose={handleMemoryDoItLater}
+          onAddToCollection={handleMemoryAddToCollection}
+        />
 
-        <Modal visible={isAddToCollectionModalVisible} transparent={true} animationType="slide" onRequestClose={() => setAddToCollectionModalVisible(false)}>
-          <TouchableWithoutFeedback onPress={() => setAddToCollectionModalVisible(false)}>
-            <View className="flex-1 flex justify-end items-center" style={{ backgroundColor: 'rgba(0, 0, 0, 0.9)' }}>
-              <TouchableWithoutFeedback>
-                <View className="bg-[#111013] w-full rounded-t-3xl pt-2">
-                  <View className="relative flex-row items-center justify-center p-4">
-                    <TouchableOpacity onPress={() => setAddToCollectionModalVisible(false)} className="absolute left-4 bg-[#1D1C20] p-2 rounded-full">
-                      <Ionicons name="close" size={20} color="white" />
-                    </TouchableOpacity>
-                    <Text className="text-white font-bold text-lg">Add to collection</Text>
-                  </View>
-                  <View className="px-4 mt-2 mb-4 space-y-4">
-                    <View className="flex-row items-center bg-[#1D1C20] rounded-[20px] px-3">
-                      <Ionicons name="search" size={20} color="#8E8E93" />
-                      <TextInput placeholder="Search by name" placeholderTextColor="#8E8E93" className="flex-1 h-12 text-[#A4A6AB] text-base ml-2" value={searchQuery} onChangeText={setSearchQuery} />
-                    </View>
-                    <TouchableOpacity onPress={handleOpenAddNewCollection} className="flex-row items-center bg-[#1D1C20] rounded-[20px] p-4">
-                      <Ionicons name="add" size={24} color="#6F27FF" />
-                      <Text className="text-white text-base ml-3 font-semibold">New Collection</Text>
-                    </TouchableOpacity>
-                  </View>
-                  <FlatList data={filteredCollections} keyExtractor={item => item.id} style={{ maxHeight: 250 }} renderItem={({ item }) => (
-                    <TouchableOpacity className="flex-row items-center justify-between px-4 py-3" onPress={() => setSelectedCollectionId(item.id)}>
-                      <View className="flex-row items-center gap-x-3 flex-shrink">
-                        <Image style={{ borderColor: "#fff", borderWidth: 2 }} source={item.image} className="w-12 h-12 rounded-full" />
-                        <View>
-                          <Text className="text-white text-base w-[250px]" numberOfLines={1}>{item.title}</Text>
-                          <Text className="text-[#4F4A5A] text-sm">{item.imageCount} images</Text>
-                        </View>
-                      </View>
-                      {selectedCollectionId === item.id ? (
-                        <View className="w-6 h-6 bg-yellow-400 rounded-full items-center justify-center"><Ionicons name="checkmark" size={16} color="#fff" /></View>
-                      ) : (
-                        <View className="w-6 h-6 rounded-full border-2 border-gray-500" />
-                      )}
-                    </TouchableOpacity>
-                  )} />
-                  <TouchableOpacity className="py-6 items-center mt-2" onPress={handleCreateNewCollection}>
-                    <Text className="text-white text-base font-semibold">Create</Text>
-                  </TouchableOpacity>
-                </View>
-              </TouchableWithoutFeedback>
-            </View>
-          </TouchableWithoutFeedback>
-        </Modal>
-
-        <Modal visible={isAddNewCollectionModalVisible} transparent={true} animationType="slide" onRequestClose={() => setAddNewCollectionModalVisible(false)}>
-          <TouchableWithoutFeedback onPress={() => setAddNewCollectionModalVisible(false)}>
-            <View className="flex-1 flex justify-end items-center" style={{ backgroundColor: 'rgba(0, 0, 0, 0.9)' }}>
-              <TouchableWithoutFeedback>
-                <View className="bg-[#111013] w-full rounded-t-3xl p-4 pt-2">
-                  <View className="relative flex-row items-center justify-center p-4">
-                    <TouchableOpacity onPress={() => setAddNewCollectionModalVisible(false)} className="absolute left-0 bg-[#1D1C20] p-2 rounded-full">
-                      <Ionicons name="close" size={20} color="white" />
-                    </TouchableOpacity>
-                    <Text className="text-white font-bold text-lg">Add New Collection</Text>
-                  </View>
-                  <View className="mt-4 space-y-6 px-2">
-                    <View>
-                      <Text className="text-[#D8D2FF] text-sm mb-2">Collection name</Text>
-                      <View className="flex-row items-center bg-[#1D1C20] rounded-xl px-4">
-                        <TextInput placeholder="Name" placeholderTextColor="#8A8A9E" className="flex-1 h-14 text-white text-base" value={newCollectionName} onChangeText={setNewCollectionName} />
-                        <Ionicons name="sparkles" size={20} color="#BDAEFF" />
-                      </View>
-                    </View>
-                    <View className="flex-row justify-between items-center">
-                      <Text className="text-[#D8D2FF] text-sm">Post as public post</Text>
-
-
-                      <TouchableOpacity onPress={() => setIsPublicPost(!isPublicPost)} className={`w-[50px] h-[30px] rounded-full justify-center ${isPublicPost ? 'bg-[#BDAEFF]' : 'bg-[#5A5A72]'}`}>
-                        <View className={`w-[26px] h-[26px] rounded-full justify-center items-center ${isPublicPost ? 'bg-white self-end mr-0.5' : 'bg-[#3A3A4D] self-start ml-0.5'}`}>
-                          {isPublicPost ? (
-                            <Ionicons name="checkmark" size={18} color="#BDAEFF" />
-                          ) : (
-                            <Ionicons name="close" size={18} color="#9E9E9E" />
-                          )}
-                        </View>
-                      </TouchableOpacity>
-
-
-                    </View>
-                    <View>
-                      <Text className="text-[#D8D2FF] text-sm mb-2">Companion</Text>
-                      <View className="flex-row items-center gap-x-2">
-                        {finalCompanions.map(c => (
-                          <Image style={{ borderColor: "#fff", borderWidth: 2 }} key={c.id} source={c.image} className="w-12 h-12 rounded-full" />
-                        ))}
-                        <TouchableOpacity onPress={handleOpenCompanionModal} style={{ borderWidth: 1.3, borderStyle: 'dashed', borderColor: '#757087' }} className="w-12 h-12 rounded-full items-center justify-center">
-                          <Icon name="user-plus" size={16} color="#BDAEFF" />
-                        </TouchableOpacity>
-                      </View>
-                    </View>
-                  </View>
-                  <TouchableOpacity className="py-6 items-center mt-8" onPress={handleCreateNewCollection}>
-                    <Text className="text-white text-base font-semibold">Create</Text>
-                  </TouchableOpacity>
-                </View>
-              </TouchableWithoutFeedback>
-            </View>
-          </TouchableWithoutFeedback>
-        </Modal>
-
-        <Modal visible={isAddCompanionModalVisible} transparent={true} animationType="slide" onRequestClose={() => setAddCompanionModalVisible(false)}>
-          <TouchableWithoutFeedback onPress={() => setAddCompanionModalVisible(false)}>
-            <View className="flex-1 flex justify-end items-center" style={{ backgroundColor: 'rgba(0, 0, 0, 0.9)' }}>
-              <TouchableWithoutFeedback>
-                <View className="bg-[#111013] w-full rounded-t-3xl pt-2">
-                  <View className="relative flex-row items-center justify-center p-4">
-                    <TouchableOpacity onPress={() => setAddCompanionModalVisible(false)} className="absolute left-4 bg-[#1D1C20] p-2 rounded-full">
-                      <Ionicons name="close" size={20} color="white" />
-                    </TouchableOpacity>
-                    <Text className="text-white font-bold text-lg">Add companion</Text>
-                  </View>
-                  <View className="px-4 mt-2 mb-4">
-                    <View className="flex-row items-center bg-[#1D1C20] rounded-lg px-3">
-                      <Ionicons name="search" size={20} color="#8E8E93" />
-                      <TextInput placeholder="Search by name" placeholderTextColor="#8E8E93" className="flex-1 h-12 text-white ml-2" value={companionSearchQuery} onChangeText={setCompanionSearchQuery} />
-                    </View>
-                  </View>
-                  <FlatList
-                    data={filteredCompanions}
-                    keyExtractor={item => item.id}
-                    style={{ maxHeight: 300, minHeight: 150 }}
-                    renderItem={({ item }) => (
-                      <TouchableOpacity className="flex-row items-center justify-between px-4 py-3" onPress={() => handleToggleCompanion(item.id)}>
-                        <View className="flex-row items-center gap-x-3">
-                          <Image style={{ borderWidth: 2, borderColor: "#fff" }} source={item.image} className="w-12 h-12 rounded-full" />
-                          <Text className="text-white text-base">{item.name}</Text>
-                        </View>
-                        {selectedCompanionIds.has(item.id) ? (
-                          <View className="w-6 h-6 bg-yellow-400 rounded-full items-center justify-center">
-                            <Ionicons name="checkmark" size={16} color="white" />
-                          </View>
-                        ) : (
-                          <View className="w-6 h-6 rounded-full border-2 border-gray-500" />
-                        )}
-                      </TouchableOpacity>
-                    )}
-                  />
-                  <TouchableOpacity className="py-6 items-center" onPress={handleConfirmCompanions}>
-                    <Text className="text-white text-base font-semibold">Confirm</Text>
-                  </TouchableOpacity>
-                </View>
-              </TouchableWithoutFeedback>
-            </View>
-          </TouchableWithoutFeedback>
-        </Modal>
+        <AddToCollectionFlow
+          visible={isAddToCollectionModalVisible}
+          onClose={() => setAddToCollectionModalVisible(false)}
+          onCreate={handleCreateNewCollection}
+          collectionsData={collectionsData}
+          allCompanions={allCompanions}
+        />
 
       </ImageBackground>
       <CustomTabBar />

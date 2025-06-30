@@ -25,7 +25,6 @@ const CustomTabBar = () => {
             icon: "home",
             type: "SimpleLineIcons",
             screen: "Home",
-
         },
         {
             name: "Explore",
@@ -119,7 +118,6 @@ const styles = StyleSheet.create({
         gap: 5
     },
     tabButton: {
-        // alignItems: "center",
         flex: 1,
     },
     screenName: {

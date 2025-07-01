@@ -44,7 +44,7 @@ const itemSpacing = 4;
 const numColumns = 3;
 const itemSize = (width - screenPadding - (itemSpacing * (numColumns - 1))) / numColumns;
 
-export default function Gallery({navigation}) {
+export default function Gallery({ navigation }) {
     const [selectedIds, setSelectedIds] = useState(new Set(['1', '7', '8']));
 
     const toggleSelection = (id) => {
@@ -103,7 +103,7 @@ export default function Gallery({navigation}) {
         );
     };
 
-        const handleNext = () => navigation.navigate("ProfileCollection");
+    const handleNext = () => navigation.navigate("ProfileCollection");
 
 
     const renderSelectedThumbnails = () => {
@@ -154,10 +154,8 @@ export default function Gallery({navigation}) {
                 source={require('../images/background.png')}
             >
                 <StatusBar barStyle="light-content" backgroundColor="transparent" translucent={true} />
-
                 <ScrollView contentContainerClassName="pb-[150px]">
-                    <View className="p-5 mt-5">
-
+                    <View className="p-5">
                         <View className="flex-row justify-between items-center mb-4">
                             <TouchableOpacity onPress={handleNext}>
                                 <Icon name="close" size={30} color="white" />

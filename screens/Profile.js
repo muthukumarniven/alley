@@ -106,7 +106,7 @@ export default function Profile({ navigation, route }) {
         <StatusBar barStyle="light-content" backgroundColor="transparent" translucent />
         <ScrollView contentContainerStyle={styles.scrollContainer}>
           <View className="p-5">
-            <View className="flex-row items-center gap-x-8 p-6 mt-[20px]">
+            <View className="flex-row items-center gap-x-8 mt-[20px]">
               <TouchableOpacity
                 onPress={handleOpenGallery}
                 style={{ borderStyle: "dashed", borderWidth: 1.6, borderColor: "#fff" }}

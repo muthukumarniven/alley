@@ -46,7 +46,7 @@ export default function CodeVerification({ navigation }) {
                 <StatusBar barStyle="light-content" backgroundColor="transparent" translucent={true} />
 
                 <ScrollView contentContainerStyle={styles.scrollContainer}>
-                    <View className="p-6 mt-[120px] flex-grow" >
+                    <View className="p-5 mt-[120px] flex-grow" >
                         <View>
                             <Text className='text-3xl font-bold text-[#fff]'>Verify your email</Text>
                             <Text className="text-[#D8D2FF] text-base font-normal mt-2.5 leading-5 ">

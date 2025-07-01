@@ -39,7 +39,7 @@ export default function Home({ navigation }) {
                             colors={['rgb(0, 0, 0)', 'transparent']}
                             className="absolute left-0 right-0 top-0 h-[80%]"
                         />
-                        <View className="p-6 z-50">
+                        <View className="p-5 z-50">
                             <View className="flex-row items-center justify-between py-8">
                                 <Image className="w-[86px] h-[37px] object-cover"
                                     source={require('../images/alley.png')}

@@ -123,7 +123,7 @@ export default function Explore({ navigation }) {
                 <StatusBar barStyle="light-content" backgroundColor="transparent" translucent={true} />
 
                 <ScrollView contentContainerClassName="flex-grow" contentContainerStyle={styles.scrollContainer}>
-                    <View className="p-6 z-50">
+                    <View className="p-5 z-50">
                         <View className="flex-row items-center bg-[#2C2A4A] rounded-[10px] h-[50px] px-4">
                             <Ionicons name="search-outline" size={22} color="#A9A9A9" style={{ marginHorizontal: 5 }} />
                             <TextInput

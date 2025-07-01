@@ -86,7 +86,7 @@ export default function Collections({ navigation }) {
                 <StatusBar barStyle="light-content" backgroundColor="transparent" translucent={true} />
 
                 <ScrollView contentContainerStyle={styles.scrollContainer}>
-                    <View className="p-5 mt-5">
+                    <View className="p-5">
                         <TouchableOpacity onPress={handleNext} className="bg-[#2D2D3A] w-12 h-12 rounded-full items-center justify-center">
                             <Feather name="chevron-left" size={28} color="#FFFFFF" />
                         </TouchableOpacity>

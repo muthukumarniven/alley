@@ -11,7 +11,6 @@ import {
     Platform,
     UIManager,
     LayoutAnimation,
-
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -104,7 +103,15 @@ export default function Gallery({ navigation }) {
     };
 
     const handleNext = () => navigation.navigate("ProfileCollection");
+    const goBackHandle = () => {
+        try {
+            navigation.navigate("GalleryAddCollect")
+            console.log("GalleryAddCollection")
+        } catch (e) {
+            console.log('hiiii nsjdfhhsf nhsjdfhjhf', e)
+        }
 
+    };
 
     const renderSelectedThumbnails = () => {
         const selectedItems = Array.from(selectedIds).slice(0, 3).map(id => galleryImages.find(img => img.id === id));
@@ -185,12 +192,11 @@ export default function Gallery({ navigation }) {
                         >
 
                             {renderSelectedThumbnails()}<Text className="text-white text-base ml-3 flex-1">{selectedIds.size} selected</Text>
-                            <TouchableOpacity className="bg-[#7B43D6] py-2 px-4 rounded-full">
+                            <TouchableOpacity onPress={goBackHandle} className="bg-[#7B43D6] py-2 px-4 rounded-full">
                                 <Text className="text-white font-bold">Add To Collection</Text>
                             </TouchableOpacity>
                         </LinearGradient>
                     )}
-
                     <View className="flex-row justify-center items-center gap-2">
                         <TouchableOpacity className="py-2 px-5 rounded-full">
                             <Text className="text-gray-400 text-base">Camera</Text>

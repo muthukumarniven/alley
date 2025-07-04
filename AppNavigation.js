@@ -14,13 +14,14 @@ import Collections from './screens/Collections';
 import Gallery from './screens/Gallery';
 import SavedCollection from './screens/SavedCollection';
 import ProfileCollection from './screens/ProfileCollection';
-
+import GalleryAddCollect from './screens/GalleryAddCollect'
+import Canvas from './screens/Canvas';
 
 const Stack = createNativeStackNavigator();
 
 export default function AppNavigator() {
   return (
-    <Stack.Navigator initialRouteName='Home' screenOptions={{ headerShown: false, animationEnabled: false, animation: "fade", presentation: "containedTransparentModal", }}>
+    <Stack.Navigator initialRouteName='Home' screenOptions={{ headerShown: false, animationEnabled: false, animation: "fade", }}>
       <Stack.Screen name='CreateAccount' component={CreateAccount} />
       <Stack.Screen name='CodeVerification' component={CodeVerification} />
       <Stack.Screen name='CreateProfile' component={CreateProfile} />
@@ -34,6 +35,15 @@ export default function AppNavigator() {
       <Stack.Screen name='Gallery' component={Gallery} />
       <Stack.Screen name='SavedCollection' component={SavedCollection} />
       <Stack.Screen name='ProfileCollection' component={ProfileCollection} />
+      <Stack.Screen name='GalleryAddCollect' component={GalleryAddCollect} />
+      <Stack.Screen name='Canvas' component={Canvas} />
+
+      
+
+
     </Stack.Navigator>
   );
 }
+
+
+

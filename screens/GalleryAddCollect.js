@@ -23,6 +23,7 @@ import alexImage from '../images/ocean.jpg';
 import sophieImage from '../images/female.jpg';
 import { BlurView } from 'expo-blur';
 
+
 const StyledTextInput = styled(TextInput);
 
 const locationData = {
@@ -40,6 +41,9 @@ const allCompanions = [
     { id: '1', name: 'Muthukumar sivakumar', image: alexImage },
     { id: '2', name: 'Bharathidasan Durai', image: sophieImage },
     { id: '3', name: 'Muthukumar s', image: sophieImage },
+    { id: '4', name: 'Muthukumar sivakumar', image: alexImage },
+    { id: '5', name: 'Bharathidasan Durai', image: sophieImage },
+    { id: '6', name: 'Muthukumar s', image: sophieImage },
 ];
 
 const DropdownItem = ({ label, onPress }) => (<TouchableOpacity onPress={onPress} className="py-4 border-b border-b-[#3A3A4D]"><Text className="text-[#E0E0E0] text-base text-center">{label}</Text></TouchableOpacity>);
@@ -58,7 +62,35 @@ const CompanionRow = ({ companion, isSelected, onSelect }) => (
     </TouchableOpacity>
 );
 
-export default function AddCollection({ navigation }) {
+
+
+const memoryImages = [
+    require('../images/ocean.jpg'),
+    require('../images/female.jpg'),
+    require('../images/female.jpg'),
+];
+
+
+const MemoryThumbnail = ({ source, onPress }) => (
+    <TouchableOpacity
+        onPress={onPress}
+        className="w-[100px] h-[100px] rounded-2xl overflow-hidden mx-2 shadow-lg"
+    >
+        <Image source={source} className="w-full h-full" />
+    </TouchableOpacity>
+);
+
+
+const AddMemoryButton = ({ onPress }) => (
+    <TouchableOpacity
+        onPress={onPress}
+        className="w-[100px] h-[100px] rounded-2xl mx-2 bg-neutral-800/80 justify-center items-center"
+    >
+        <Feather name="plus" size={40} color="white" />
+    </TouchableOpacity>
+);
+
+export default function GalleryAddCollect({ navigation }) {
     const [memoryText, setMemoryText] = useState('');
     const [activeCategory, setActiveCategory] = useState('Food & Drinks');
     const [isLocationModalVisible, setLocationModalVisible] = useState(false);
@@ -79,7 +111,7 @@ export default function AddCollection({ navigation }) {
     const [citySearchQuery, setCitySearchQuery] = useState('');
 
     const categories = [{ name: 'Food & Drinks', icon: 'hamburger' }, { name: 'Activity', icon: 'flag' }];
-    const handleNext = () => navigation.navigate("Home");
+    const handleNext = () => navigation.navigate("Gallery", { animationEnabled: false });
 
     const handleSelectCountry = (country) => {
         setSelectedCountry(country);
@@ -134,9 +166,17 @@ export default function AddCollection({ navigation }) {
         </View>
     );
 
-    const showSuccessPopup = () => {
-        navigation.navigate("Profile", { showMemoryModal: true });
+    const handleAddPress = () => {
+        console.log("Add button pressed! Open image picker or camera.");
     };
+
+    const handleImagePress = (image, index) => {
+        console.log(`Pressed image at index: ${index}`);
+    };
+
+
+    const handleNextGallery = () => navigation.navigate("ProfileCollection");
+
 
     return (
         <SafeAreaView className="flex-1 bg-black" edges={['top', "bottom"]}>
@@ -151,9 +191,49 @@ export default function AddCollection({ navigation }) {
                             </TouchableOpacity>
                             <Text className="text-white text-lg font-semibold">Add a memory</Text>
                         </View>
-                        <View className="flex-row justify-center mt-[19px]">
-                            <Image source={require('../images/ocean.jpg')} className="w-[100px] h-[100px] rounded-xl" style={{ resizeMode: 'cover' }} />
+
+
+
+
+
+
+
+
+                        <View className="flex-1 mt-5">
+                            <ScrollView
+                                horizontal
+                                showsHorizontalScrollIndicator={false}
+                                contentContainerStyle={{
+                                    alignItems: 'center',
+                                }}
+                            >
+                                {memoryImages.map((imgSrc, index) => (
+                                    <MemoryThumbnail
+                                        key={index}
+                                        source={imgSrc}
+                                        onPress={() => handleImagePress(imgSrc, index)}
+                                    />
+                                ))}
+                                <AddMemoryButton onPress={handleAddPress} />
+                            </ScrollView>
                         </View>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                         <View className="bg-[#1E1C22] p-5 rounded-2xl mt-4">
                             <Text className="text-sm text-[#D8D2FF] mb-2.5">Username</Text>
                             <View className="flex-row items-center bg-[#3B3842] px-3 rounded-xl h-14">
@@ -209,7 +289,7 @@ export default function AddCollection({ navigation }) {
                 </ScrollView>
                 <View className="absolute bottom-0 w-full px-5 py-5" >
                     <BlurView intensity={100} style={StyleSheet.absoluteFillObject} tint="dark" />
-                    <TouchableOpacity className="w-full h-[55px] rounded-full justify-center items-center overflow-hidden border border-white/10" onPress={showSuccessPopup}>
+                    <TouchableOpacity onPress={handleNextGallery} className="w-full h-[55px] rounded-full justify-center items-center overflow-hidden border border-white/10">
                         <Text className="text-base font-semibold text-white">Save Memory</Text>
                     </TouchableOpacity>
                 </View>
@@ -264,7 +344,7 @@ export default function AddCollection({ navigation }) {
                             </TouchableOpacity>
                         </View>
 
-                        {/* --- FIX: Conditionally render pickers as Views instead of Modals --- */}
+                        {/* --- Conditionally render pickers as Views instead of Modals --- */}
                         {isCountryPickerVisible && (
                             <TouchableWithoutFeedback onPress={() => { setCountryPickerVisible(false); setCountrySearchQuery(''); }}>
                                 <View style={StyleSheet.absoluteFill} className="flex-1 flex justify-center items-center px-5 bg-black/80">
@@ -300,9 +380,6 @@ export default function AddCollection({ navigation }) {
                         )}
                     </View>
                 </Modal>
-
-                {/* --- The original Picker Modals are now removed --- */}
-
             </ImageBackground>
         </SafeAreaView>
     );

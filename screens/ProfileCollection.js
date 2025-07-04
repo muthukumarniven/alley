@@ -41,6 +41,8 @@ export default function ProfileCollection({ navigation }) {
     const baseButtonStyles = "flex-row items-center py-3 px-7 rounded-full shadow-lg shadow-black";
 
     const handleNextNext = () => navigation.navigate("Gallery");
+    const handleChnage = () => navigation.navigate("Canvas");
+
 
     return (
         <SafeAreaView className="flex-1 bg-black">
@@ -52,7 +54,7 @@ export default function ProfileCollection({ navigation }) {
 
                 <ScrollView contentContainerStyle={styles.scrollContainer}>
                     <View className="p-5">
-                        <TouchableOpacity onPress={handleNext} className="bg-[#2D2D3A] w-12 h-12 rounded-full items-center justify-center">
+                        <TouchableOpacity onPress={handleNext} className="bg-[#2D2D3A] w-[40px] h-[40px] rounded-full items-center justify-center">
                             <Feather name="chevron-left" size={28} color="#FFFFFF" />
                         </TouchableOpacity>
                         <Text className='text-[40px] mt-5 font-bold text-white'>Top 10 Places in Japan</Text>
@@ -72,7 +74,7 @@ export default function ProfileCollection({ navigation }) {
                         </TouchableOpacity>
 
                         {listData.map((item, index) => (
-                            <View
+                            <TouchableOpacity onPress={handleChnage}
                                 key={item.id}
                                 className={`w-full mb-8 ${index % 2 === 0 ? 'items-start' : 'items-end'}`}
                             >
@@ -82,7 +84,7 @@ export default function ProfileCollection({ navigation }) {
                                         className="w-full h-[227px] rounded-3xl"
                                     />
                                 </View>
-                            </View>
+                            </TouchableOpacity>
                         ))}
 
                     </View>

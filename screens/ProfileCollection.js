@@ -51,7 +51,6 @@ export default function ProfileCollection({ navigation }) {
                 source={require('../images/background.png')}
             >
                 <StatusBar barStyle="light-content" backgroundColor="transparent" translucent={true} />
-
                 <ScrollView contentContainerStyle={styles.scrollContainer}>
                     <View className="p-5">
                         <TouchableOpacity onPress={handleNext} className="bg-[#2D2D3A] w-[40px] h-[40px] rounded-full items-center justify-center">

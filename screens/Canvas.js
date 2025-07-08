@@ -23,7 +23,6 @@ const SHEET_MIN_HEIGHT = SCREEN_HEIGHT * 0.20;
 export default function Canvas({ navigation }) {
 
     const handleNext = () => navigation.navigate("ProfileCollection");
-
     const animatedValue = useRef(new Animated.Value(0)).current;
 
     const panResponder = useRef(
@@ -132,7 +131,7 @@ export default function Canvas({ navigation }) {
                     left: 0,
                     right: 0,
                     height: SHEET_MAX_HEIGHT,
-                    backgroundColor: '#21212B',
+                    backgroundColor: '#22222A',
                     borderTopLeftRadius: 20,
                     borderTopRightRadius: 20,
                     transform: [{ translateY: sheetTranslateY }],
@@ -144,19 +143,19 @@ export default function Canvas({ navigation }) {
 
                 <ScrollView>
                     <View className="p-5 pt-0">
-                        <Text className="text-white text-3xl font-bold">Country side beach</Text>
-                        <Text className="text-gray-400 text-base mt-1">Osaka, Japan</Text>
+                        <Text className="text-[#F5F6F9] text-[21px] font-bold">Country side beach</Text>
+                        <Text className="text-[#D8D2FF] text-base mt-1">Osaka, Japan</Text>
 
                         <View className="bg-[#383844] p-4 rounded-lg flex-row items-center my-4">
                             <FontAwesome5 name="medal" size={16} color="#FFD700" />
-                            <Text className="text-white ml-2">This is an off-beat location</Text>
+                            <Text className="text-[#F5F6F9] text-sm ml-2">This is an off-beat location</Text>
                         </View>
 
-                        <Text className="text-gray-300 text-base leading-6">
+                        <Text className="text-[#D8D2FF] text-base leading-6">
                             Nestled in the bustling streets of Osaka, the cozy cafe "Sakura Breeze" offers a delightful escape from the city's hustle and bustle. As you step inside, the aroma of freshly brewed coffee mingles with the sweet scent of matcha pastries. The warm wooden decor and soft lighting create an inviting atmosphere, perfect for relaxing or catching up with friends....
                         </Text>
 
-                        <Text className="text-white text-2xl font-bold mt-6 mb-3">Location</Text>
+                        <Text className="text-[#F5F6F9] text-base font-bold mt-6 mb-3">Location</Text>
                         <Image
                             source={require('../images/map.png')} // Make sure you have a map image
                             className="w-full h-48 rounded-2xl"
